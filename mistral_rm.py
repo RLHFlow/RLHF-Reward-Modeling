@@ -1,6 +1,8 @@
-########
-# This is the training script used for Mistral models modified from TRL package.
-########
+########################
+# This script is modified from the TRL package https://github.com/huggingface/trl/blob/main/examples/research_projects/stack_llama/scripts/reward_modeling.py
+# This script is designed for the reward modeling with Mistral model which should be handled carefully because it does not have an official pad token
+# If you have any question, feel free to send me an email via wx13@illinois.edu
+########################
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Union
 
@@ -14,14 +16,12 @@ from transformers import (
     AutoModelForSequenceClassification,
     AutoTokenizer,
     HfArgumentParser,
-    PreTrainedTokenizerBase,
     Trainer,
-    TrainerCallback,
     TrainingArguments,
 )
 from transformers.utils import PaddingStrategy
 
-import pdb
+
 
 
 # Define and parse arguments.
@@ -32,13 +32,10 @@ class ScriptArguments:
     """
     local_rank: Optional[int] = field(
         default=-1, metadata={"help": "Used for multi-gpu"})
-    resume_from_checkpoint: Optional[bool] = field(
-        default=False,
-        metadata={"help": "If you want to resume training where it left off."},
-    )
+
     deepspeed: Optional[str] = field(
         # default="dp3.json",
-        # default="dp1.json",
+        #default="dp1.json",
         default=None,
         metadata={
             "help": "Path to deepspeed config if using deepspeed. You may need this if the model that you want to train doesn't fit on a single GPU."
@@ -47,18 +44,12 @@ class ScriptArguments:
     per_device_train_batch_size: Optional[int] = field(default=1)
     per_device_eval_batch_size: Optional[int] = field(default=1)
     gradient_accumulation_steps: Optional[int] = field(default=64)
-    learning_rate: Optional[float] = field(default=1e-5)
+    learning_rate: Optional[float] = field(default=5e-6)
     weight_decay: Optional[float] = field(default=0.001)
     model_name: Optional[str] = field(
-        default="mistralai/Mistral-7B-Instruct-v0.2",  # "mistralai/Mistral-7B-Instruct-v0.2",
+        default="mistralai/Mistral-7B-Instruct-v0.2",
         metadata={
             "help": "The model that you want to train from the Hugging Face hub. E.g. gpt2, gpt2-xl, bert, etc."
-        },
-    )
-    tokenizer_name: Optional[str] = field(
-        default=None,
-        metadata={
-            "help": "The tokenizer for your model, if left empty will use the default for your model",
         },
     )
     bf16: Optional[bool] = field(
@@ -72,15 +63,15 @@ class ScriptArguments:
         metadata={"help": "The number of training epochs for the reward model."},
     )
     train_set_path: Optional[str] = field(
-        default="",
+        default="weqweasdas/preference_dataset_mix2",
         metadata={"help": "The dir of the subset of the training data to use"},
     )
     eval_set_path: Optional[str] = field(
-        default="",
+        default="weqweasdas/preference_dataset_mix2",
         metadata={"help": "The dir of the subset of the eval data to use"},
     )
     output_path: Optional[str] = field(
-        default="",
+        default="./models/mistral_rm_test",
         metadata={"help": "The dir for output model"},
     )
     gradient_checkpointing: Optional[bool] = field(
@@ -98,9 +89,14 @@ class ScriptArguments:
         metadata={"help": "The lr scheduler"},
     )
     max_length: Optional[int] = field(default=4096)
-    eval_first_step: Optional[bool] = field(
-        default=False,
-        metadata={"help": "Whether to run eval after the first step"},
+
+    save_every_steps: Optional[int] = field(
+        default=999999,
+        metadata={"help": "Save the model every x steps"},
+    )
+    eval_every_steps: Optional[int] = field(
+        default=999999,
+        metadata={"help": "Eval the model every x steps"},
     )
 
 
@@ -113,36 +109,26 @@ tokenizer = AutoTokenizer.from_pretrained(tokenizer_name, use_fast = False)
 
 # Adjusted according to the base model
 # Need to do this for the models that don't have an official pad token.
+#tokenizer.pad_token = tokenizer.eos_token
+#tokenizer.pad_token_id = tokenizer.eos_token_id
 tokenizer.add_special_tokens({'pad_token': '[PAD]'})
 print(tokenizer.padding_side)
 tokenizer.truncation_side = "left"
 tokenizer.model_max_length = script_args.max_length
+# tokenizer.padding_side = "right"
 ###
 
 
+
 # Get the dataset
-train_path = "weqweasdas/preference_dataset_mixture"
-eval_path = "weqweasdas/preference_dataset_mixture"
-output_name = "/home/xw/rm/models/mistral_rm"
-
-
-def format(messages):
-    format_text = "[INST] You must read the following conversation carefully and rate the assistant's response from score 0-100 in these aspects: helpfulness, correctness, coherence, honesty, complexity.\n"
-
-    for message in messages:
-        if message['role'] == "user":
-            format_text = format_text + "\nUser: " + message['content']
-        elif message['role'] == 'assistant':
-            format_text = format_text + "\nAssistant: " + message['content']
-    return format_text
+train_path = script_args.train_set_path
+eval_path = script_args.eval_set_path
+output_name = script_args.output_path
 
 
 def build_dataset(tokenizer, train_path, eval_path):
 
     def tokenize(sample):
-        # TO DO 
-        #sample['positive'] = format(sample['chosen'])
-        #sample['negative'] = format(sample['rejected'])
         sample['positive'] = tokenizer.apply_chat_template(
             sample['chosen'], tokenize=False, add_generation_prompt=False).replace(tokenizer.bos_token, "")
         sample['negative'] = tokenizer.apply_chat_template(
@@ -155,19 +141,15 @@ def build_dataset(tokenizer, train_path, eval_path):
         sample["attention_mask_k"] = tokenized_neg["attention_mask"]
         return sample
 
-    # ds = load_dataset("json", data_files=train_path, split="train",
-    #                  field="instances").shuffle(seed=42)  # .select(range(5000))
     ds = load_dataset(train_path, split="train").shuffle(seed=42)
-
+    ds = ds.select(range(2000))
     ds = ds.map(tokenize, num_proc=8)
 
     eval_dataset = None
 
     train_dataset = ds
-    eval_dataset = load_dataset(train_path, split="train").select(range(500))
-    eval_dataset = eval_dataset.map(tokenize, num_proc=8)
-    eval_dataset = eval_dataset.select(range(500))
-
+    #eval_dataset = load_dataset(eval_path, split="train").shuffle(seed=42).select(range(500))
+    eval_dataset = ds.select(range(500))
     return train_dataset, eval_dataset
 
 
@@ -177,6 +159,7 @@ print("Training set: ", len(train_dataset), " Eval set: ", len(eval_dataset))
 # Define the trainer
 
 
+# Define the trainer
 training_args = TrainingArguments(
     output_dir=output_name,
     learning_rate=script_args.learning_rate,
@@ -185,9 +168,9 @@ training_args = TrainingArguments(
     num_train_epochs=script_args.num_train_epochs,
     weight_decay=script_args.weight_decay,
     evaluation_strategy="steps",
-    eval_steps=1000,
+    eval_steps=script_args.eval_every_steps,
     save_strategy="steps",
-    save_steps=3000,
+    save_steps=script_args.save_every_steps,
     gradient_accumulation_steps=script_args.gradient_accumulation_steps,
     gradient_checkpointing=script_args.gradient_checkpointing,
     deepspeed=script_args.deepspeed,
@@ -196,27 +179,16 @@ training_args = TrainingArguments(
     label_names=[],
     bf16=script_args.bf16,
     logging_strategy="steps",
-    logging_steps=2,
+    logging_steps=10,
     optim=script_args.optim,
     lr_scheduler_type=script_args.lr_scheduler_type,
     warmup_ratio=0.03,
     report_to='wandb'
 )
 
-
-# peft_config = LoraConfig(
-#     task_type=TaskType.SEQ_CLS,
-#     inference_mode=False,
-#     r=8,
-#     lora_alpha=32,
-#     lora_dropout=0.1,
-# )
-
 model = AutoModelForSequenceClassification.from_pretrained(
     script_args.model_name, num_labels=1, torch_dtype=torch.bfloat16, use_flash_attention_2=True,
 )
-# model = get_peft_model(model, peft_config)
-# model.print_trainable_parameters()
 
 model.config.use_cache = not script_args.gradient_checkpointing
 model.config.pad_token_id = tokenizer.pad_token_id
@@ -237,8 +209,7 @@ class RewardDataCollatorWithPadding:
 
     def __call__(self, features: List[Dict[str, Any]]) -> Dict[str, Any]:
         merged_features = []
-        # features_j = []
-        # features_k = []
+
         for feature in features:
             merged_features.append(
                 {
@@ -306,10 +277,9 @@ trainer = RewardTrainer(
 )
 
 
-# trainer.train(script_args.resume_from_checkpoint)
 trainer.train()
 
 
 print("Saving last checkpoint of the model")
-model.save_pretrained(output_name + "last_checkpoint")
-tokenizer.save_pretrained(output_name + "last_checkpoint")
+model.save_pretrained(output_name + "/last_checkpoint")
+tokenizer.save_pretrained(output_name + "/last_checkpoint")
