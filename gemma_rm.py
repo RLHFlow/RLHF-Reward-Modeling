@@ -1,9 +1,12 @@
-########
-# This is the training script used for Gemma models modified from TRL package.
-########
+########################
+# This script is modified from the TRL package https://github.com/huggingface/trl/blob/main/examples/research_projects/stack_llama/scripts/reward_modeling.py
+# This script is designed for the reward modeling with Gemma model but can also be applied to any models with a chat template and an official pad token
+# If you have any question, feel free to send me an email via wx13@illinois.edu
+########################
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Union
 
+# import evaluate
 import numpy as np
 import torch
 import torch.nn as nn
@@ -31,10 +34,7 @@ class ScriptArguments:
     """
     local_rank: Optional[int] = field(
         default=-1, metadata={"help": "Used for multi-gpu"})
-    resume_from_checkpoint: Optional[bool] = field(
-        default=False,
-        metadata={"help": "If you want to resume training where it left off."},
-    )
+
     deepspeed: Optional[str] = field(
         # default="dp3.json",
         default=None,
@@ -44,19 +44,13 @@ class ScriptArguments:
     )
     per_device_train_batch_size: Optional[int] = field(default=1)
     per_device_eval_batch_size: Optional[int] = field(default=1)
-    gradient_accumulation_steps: Optional[int] = field(default=64)
+    gradient_accumulation_steps: Optional[int] = field(default=32)
     learning_rate: Optional[float] = field(default=1e-5)
     weight_decay: Optional[float] = field(default=0.001)
     model_name: Optional[str] = field(
         default="google/gemma-2b-it", #"mistralai/Mistral-7B-Instruct-v0.2",
         metadata={
             "help": "The model that you want to train from the Hugging Face hub. E.g. gpt2, gpt2-xl, bert, etc."
-        },
-    )
-    tokenizer_name: Optional[str] = field(
-        default=None,
-        metadata={
-            "help": "The tokenizer for your model, if left empty will use the default for your model",
         },
     )
     bf16: Optional[bool] = field(
@@ -70,15 +64,15 @@ class ScriptArguments:
         metadata={"help": "The number of training epochs for the reward model."},
     )
     train_set_path: Optional[str] = field(
-        default="",
+        default="weqweasdas/preference_dataset_mix2",
         metadata={"help": "The dir of the subset of the training data to use"},
     )
     eval_set_path: Optional[str] = field(
-        default="",
+        default="weqweasdas/preference_dataset_mix2",
         metadata={"help": "The dir of the subset of the eval data to use"},
     )
     output_path: Optional[str] = field(
-        default="",
+        default="./models/gemma2b_rm",
         metadata={"help": "The dir for output model"},
     )
     gradient_checkpointing: Optional[bool] = field(
@@ -86,7 +80,9 @@ class ScriptArguments:
         metadata={"help": "Enables gradient checkpointing."},
     )
     optim: Optional[str] = field(
+        # default="adamw_hf",
         default="paged_adamw_32bit",
+        # default="adamw_torch_fused",
         metadata={"help": "The optimizer to use."},
     )
     lr_scheduler_type: Optional[str] = field(
@@ -94,11 +90,15 @@ class ScriptArguments:
         metadata={"help": "The lr scheduler"},
     )
     max_length: Optional[int] = field(default=4096)
-    eval_first_step: Optional[bool] = field(
-        default=False,
-        metadata={"help": "Whether to run eval after the first step"},
-    )
 
+    save_every_steps: Optional[int] = field(
+        default=999999,
+        metadata={"help": "Save the model every x steps"},
+    )
+    eval_every_steps: Optional[int] = field(
+        default=999999,
+        metadata={"help": "Eval the model every x steps"},
+    )
 
 parser = HfArgumentParser(ScriptArguments)
 script_args = parser.parse_args_into_dataclasses()[0]
@@ -109,20 +109,13 @@ tokenizer = AutoTokenizer.from_pretrained(tokenizer_name, use_auth_token=True)
 
 # Adjusted according to the base model
 # Need to do this for the models that don't have an official pad token.
-#tokenizer.pad_token = tokenizer.eos_token
-#tokenizer.pad_token_id = tokenizer.eos_token_id
-
 tokenizer.truncation_side = "left"
 tokenizer.model_max_length = script_args.max_length
-#tokenizer.padding_side = "right"
-###
-
 
 # Get the dataset
-train_path = "weqweasdas/preference_dataset_mixture"
-eval_path = "weqweasdas/preference_dataset_mixture"
-output_name = "/home/xw/models/gemma_2b_mixture1"
-
+train_path = script_args.train_set_path
+eval_path = script_args.eval_set_path
+output_name = script_args.output_path
 
 def build_dataset(tokenizer, train_path, eval_path):
 
@@ -140,19 +133,16 @@ def build_dataset(tokenizer, train_path, eval_path):
         sample["input_ids_k"] = tokenized_neg["input_ids"]
         sample["attention_mask_k"] = tokenized_neg["attention_mask"]
         return sample
-
-
+    
     ds = load_dataset(train_path, split="train").shuffle(seed=42)
+    #ds = ds.select(range(2000))
     ds = ds.map(tokenize, num_proc=8)
 
     eval_dataset = None
 
     train_dataset = ds
-    
-    eval_dataset = load_dataset(train_path, split="train").select(range(500))
-    eval_dataset = eval_dataset.map(tokenize, num_proc=8)
-    eval_dataset = eval_dataset.select(range(500))
-
+    eval_dataset = load_dataset(eval_path, split="train").shuffle(seed=42).select(range(500))
+    #eval_dataset = ds.select(range(500))
     return train_dataset, eval_dataset
 
 
@@ -160,7 +150,6 @@ train_dataset, eval_dataset = build_dataset(tokenizer, train_path, eval_path)
 print("Training set: ", len(train_dataset), " Eval set: ", len(eval_dataset))
 
 # Define the trainer
-
 training_args = TrainingArguments(
     output_dir=output_name,
     learning_rate=script_args.learning_rate,
@@ -169,9 +158,9 @@ training_args = TrainingArguments(
     num_train_epochs=script_args.num_train_epochs,
     weight_decay=script_args.weight_decay,
     evaluation_strategy="steps",
-    eval_steps=1000,
+    eval_steps=script_args.eval_every_steps,
     save_strategy="steps",
-    save_steps=3000,
+    save_steps=script_args.save_every_steps,
     gradient_accumulation_steps=script_args.gradient_accumulation_steps,
     gradient_checkpointing=script_args.gradient_checkpointing,
     deepspeed=script_args.deepspeed,
@@ -203,7 +192,6 @@ model = AutoModelForSequenceClassification.from_pretrained(
 # model.print_trainable_parameters()
 
 model.config.use_cache = not script_args.gradient_checkpointing
-#model.config.pad_token_id = tokenizer.pad_token_id
 num_proc = 24  # Can adjust to be higher if you have more processors.
 original_columns = train_dataset.column_names
 
@@ -219,8 +207,6 @@ class RewardDataCollatorWithPadding:
 
     def __call__(self, features: List[Dict[str, Any]]) -> Dict[str, Any]:
         merged_features = []
-        # features_j = []
-        # features_k = []
         for feature in features:
             merged_features.append(
                 {
@@ -288,10 +274,9 @@ trainer = RewardTrainer(
 )
 
 
-# trainer.train(script_args.resume_from_checkpoint)
 trainer.train()
 
 
 print("Saving last checkpoint of the model")
-model.save_pretrained(output_name + "last_checkpoint")
-tokenizer.save_pretrained(output_name + "last_checkpoint")
+model.save_pretrained(output_name + "/last_checkpoint")
+tokenizer.save_pretrained(output_name + "/last_checkpoint")
