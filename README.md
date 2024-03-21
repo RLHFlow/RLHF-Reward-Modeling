@@ -100,7 +100,6 @@ Difference:
 ## Running the Code
 
 
-
 Running the code with Gemma-2b-it. 
 
 ```shell
@@ -116,6 +115,14 @@ accelerate launch rm.py --model_name google/gemma-2b-it --max_length 4096 --trai
 ```
 
 **REMARK: note that with deepspeed stage 3, the final mode saving does not work normally. You should set the save_every_steps as the total number of training steps - 1 so that the trainer will save a model for you just before finishing the training.**
+
+## Evaluation Results
+
+You can evaluate the resulting reward model with the [benchmark](https://huggingface.co/datasets/allenai/reward-bench) by the following command and the result will be genera
+
+```shell
+accelerate launch eval_bench_mark.py --reward_name_or_path ./models/gemma_2b_mixture2_last_checkpoint --record_dir ./models/bench_mark_eval.txt
+```
 
 ## Citation
 
