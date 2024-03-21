@@ -9,7 +9,7 @@ TL;DL: this is a repo for training the reward model for [RLHF (PPO)](https://arx
 
 To do
 
-One tentative choise is to install the alignment handbbok and the environment should be sufficient.
+One tentative choice is to install the alignment handbbok and the environment should be sufficient.
 
 ```shell
 conda create -n newhandbook python=3.10.9
@@ -22,7 +22,7 @@ python -m pip install .
 python -m pip install .
 pip install flash-attn
 
-git clone gh repo clone WeiXiongUST/RLHF-Reward-Modeling
+git clone https://github.com/WeiXiongUST/RLHF-Reward-Modeling.git
 ```
 
 Some possible problems:
