@@ -2,7 +2,7 @@
 
 TL;DL: this is a repo for training the reward model for [RLHF (PPO)](https://arxiv.org/pdf/2203.02155.pdf), [rejection sampling fine-tuning](https://arxiv.org/pdf/2304.06767v4.pdf), and [iterative DPO](https://arxiv.org/pdf/2312.11456.pdf).
 
-- 8 x A40 48G: we can train Gemma-7B-it with max_length 4096 with deepspeed3 + gradient checkpoint;
+- 4 x A40 48G: we can train Gemma-7B-it with max_length 4096 with deepspeed3 + gradient checkpoint;
 - 4 x A100 80G: we can train Gemma-7B-it with max_length 4096 with gradient checkpoint.
 
 ## Installation instructions
