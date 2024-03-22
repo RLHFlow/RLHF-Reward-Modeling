@@ -142,7 +142,7 @@ def build_dataset(tokenizer, train_path, eval_path):
         return sample
 
     ds = load_dataset(train_path, split="train").shuffle(seed=42)
-    ds = ds.select(range(2000))
+    #ds = ds.select(range(2000))
     ds = ds.map(tokenize, num_proc=8)
 
     eval_dataset = None
