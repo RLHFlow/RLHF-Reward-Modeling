@@ -59,6 +59,7 @@ We preprocess 4 dataset and upload them to the hugginface hub.
 - Version 2: [weqweasdas/preference_dataset_mix2](weqweasdas/preference_dataset_mix2)
 - Version 3: [weqweasdas/preference_dataset_mixture2_and_safe_pku](weqweasdas/preference_dataset_mixture2_and_safe_pku)
 - Version 4: [weqweasdas/preference_dataset_mixture2_and_safe_pku150k](weqweasdas/preference_dataset_mixture2_and_safe_pku150k)
+- Version 5: [Unified-Feedback](https://huggingface.co/datasets/llm-blender/Unified-Feedback)
 
 **Version 1:** The model is trained on a **mixture1** of
 
@@ -96,6 +97,8 @@ Difference:
 **Version 3:** Mixture2 + 30K safety is the mixture2 + the training set of [PKU-Alignment/PKU-SafeRLHF-30K](https://huggingface.co/datasets/PKU-Alignment/PKU-SafeRLHF-30K)
 
 **Version 4:** 1 Mixture2 + 150K safety is the mixture2 + 150K samples from [PKU-Alignment/PKU-SafeRLHF](https://huggingface.co/datasets/PKU-Alignment/PKU-SafeRLHF)
+
+**Version 5** Directly leverage the dataset from [Unified-Feedback](https://huggingface.co/datasets/llm-blender/Unified-Feedback), which includes 886K preference samples from 8 prior datasets: openai/summarize_from_feedback, openai/webgpt_comparisons, Dahoas/instruct-synthetic-prompt-responses, Anthropic/hh-rlhf, lmsys/chatbot_arena_conversations, openbmb/UltraFeedback, argilla/ultrafeedback-binarized-preferences-cleaned, berkeley-nest/Nectar.
 
 ## Running the Code
 
