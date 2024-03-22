@@ -1,15 +1,15 @@
 # RLHF-Reward-Modeling
 
-TL;DL: this is a repo for training the reward model for [RLHF (PPO)](https://arxiv.org/pdf/2203.02155.pdf), [rejection sampling fine-tuning](https://arxiv.org/pdf/2304.06767v4.pdf), and [iterative DPO](https://arxiv.org/pdf/2312.11456.pdf).
+TL;DL: this is a repo for training the reward model for [DRL-based RLHF (PPO)](https://arxiv.org/pdf/2203.02155.pdf), [Iterative SFT (Rejection sampling fine-tuning)](https://arxiv.org/pdf/2304.06767v4.pdf), and [iterative DPO](https://arxiv.org/pdf/2312.11456.pdf).
 
-- 4 x A40 48G: we can train Gemma-7B-it with max_length 4096 with deepspeed3 + gradient checkpoint;
+- 4 x A40 48G: we can train Gemma-7B-it with max_length 4096 with Deepspeed Zero-3 + gradient checkpoint;
 - 4 x A100 80G: we can train Gemma-7B-it with max_length 4096 with gradient checkpoint.
 
 ## Installation instructions
 
-To do
+To be updated.
 
-One tentative choice is to install the alignment handbbok and the environment should be sufficient.
+The current solution is based on the alignment handbbok and the environment, which should be sufficient for plain RM training.
 
 ```shell
 conda create -n newhandbook python=3.10.9
@@ -27,7 +27,7 @@ git clone https://github.com/WeiXiongUST/RLHF-Reward-Modeling.git
 
 Some possible problems:
 
-CUDA HOME does not exist, unable to compile CUDA op(s)AssertionError:[end of output]
+`CUDA_HOME` may not exist, unable to compile CUDA op(s)AssertionError:[end of output]
 
 ```shell
 conda install nvidia/label/cuda-12.2.0::cuda-nvcc
@@ -50,7 +50,8 @@ The dataset should be preprocessed as the standard format, where each of the sam
 { "content": "Please identify the top 5 rarest animals in the world.", "role": "user" },
 { "content": "Do you mean animals that are really rare, or rare relative to the size of the human population?", "role": "assistant" },
 { "content": "The ones that are really rare.", "role": "user" },
-{"content": "Alright, here’s what I found:", "role": "assistant" } ]
+{ "content": "Alright, here’s what I found:", "role": "assistant" }, 
+]
 ```
 
 We preprocess 4 dataset and upload them to the hugginface hub. 
@@ -101,7 +102,6 @@ Difference:
 **Version 5** Directly leverage the dataset from [llm-blender/Unified-Feedback](https://huggingface.co/datasets/llm-blender/Unified-Feedback), which includes 886K preference samples from 8 prior datasets: openai/summarize_from_feedback, openai/webgpt_comparisons, Dahoas/instruct-synthetic-prompt-responses, Anthropic/hh-rlhf, lmsys/chatbot_arena_conversations, openbmb/UltraFeedback, argilla/ultrafeedback-binarized-preferences-cleaned, berkeley-nest/Nectar.
 
 ## Running the Code
-
 
 Running the code with Gemma-2b-it. 
 
