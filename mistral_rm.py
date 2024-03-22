@@ -281,5 +281,6 @@ trainer.train()
 
 
 print("Saving last checkpoint of the model")
-model.save_pretrained(output_name + "/last_checkpoint")
+#model.save_pretrained(output_name + "/last_checkpoint")
+trainer.save_model(output_name + "/last_checkpoint")
 tokenizer.save_pretrained(output_name + "/last_checkpoint")
