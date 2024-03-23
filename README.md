@@ -121,11 +121,24 @@ accelerate launch rm.py --model_name google/gemma-2b-it --max_length 4096 --trai
 
 ## Evaluation Results
 
-You can evaluate the resulting reward model with the [benchmark](https://huggingface.co/datasets/allenai/reward-bench) by the following command and the result will be genera
+You can evaluate the resulting reward model with the dataset provided by [benchmark](https://huggingface.co/datasets/allenai/reward-bench) by the following command.
 
 ```shell
-accelerate launch eval_bench_mark.py --reward_name_or_path ./models/gemma_2b_mixture2_last_checkpoint --record_dir ./models/bench_mark_eval.txt
+accelerate launch eval_bench_mark.py --reward_name_or_path ./models/gemma_2b_mixture2_last_checkpoint --record_dir ./bench_mark_eval.txt
 ```
+
+Some models trained by our script are competitive in the leaderboard. 
+
+![image](https://github.com/WeiXiongUST/RLHF-Reward-Modeling/assets/90632760/49f1663d-4dbb-4513-80cb-3fab00f6f955)
+
+
+## To Do
+
+- [x]  Bradley-Terry Reward Model based on Gemma and Mistral.
+- [ ]  Bradley-Terry Reward Model based on Mixtral;
+- [ ]  Preference model;
+- [ ]  Regression-based reward model;
+- [ ]  Multi-objective reward model.
 
 ## Citation
 
