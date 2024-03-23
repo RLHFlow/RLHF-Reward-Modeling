@@ -156,10 +156,12 @@ The repo was part of the iterative rejection sampling fine-tuning and iterative 
   year={2023}
 }
 
-@article{xiong2023gibbs,
-  title={Gibbs sampling from human feedback: A provable kl-constrained framework for rlhf},
-  author={Xiong, Wei and Dong, Hanze and Ye, Chenlu and Zhong, Han and Jiang, Nan and Zhang, Tong},
-  journal={arXiv preprint arXiv:2312.11456},
-  year={2023}
+@misc{xiong2024iterative,
+      title={Iterative Preference Learning from Human Feedback: Bridging Theory and Practice for RLHF under KL-Constraint}, 
+      author={Wei Xiong and Hanze Dong and Chenlu Ye and Ziqi Wang and Han Zhong and Heng Ji and Nan Jiang and Tong Zhang},
+      year={2024},
+      eprint={2312.11456},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
 }
 ```
