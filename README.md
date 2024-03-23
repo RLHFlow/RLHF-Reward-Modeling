@@ -1,13 +1,19 @@
 # RLHF-Reward-Modeling
 
+
+
+
 TL;DL: this is a repo for training the reward model for [DRL-based RLHF (PPO)](https://arxiv.org/pdf/2203.02155.pdf), [Iterative SFT (Rejection sampling fine-tuning)](https://arxiv.org/pdf/2304.06767v4.pdf), and [iterative DPO](https://arxiv.org/pdf/2312.11456.pdf).
 
 - 4 x A40 48G: we can train Gemma-7B-it with max_length 4096 by Deepspeed Zero-3 + gradient checkpoint;
 - 4 x A100 80G: we can train Gemma-7B-it with max_length 4096 by gradient checkpoint;
 - The resulting reward models achieve SOTA performance in the RMs with based model ≤ 13B in the leaderboard of [RewardBench](https://huggingface.co/spaces/allenai/reward-bench).
 
+🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-Check out our [blog post](https://efficient-unicorn-451.notion.site/Reward-Modeling-for-RLHF-abe03f9afdac42b9a5bee746844518d0)!
+🔥🔥🚀🚀🚀 **Check out our [blog post](https://efficient-unicorn-451.notion.site/Reward-Modeling-for-RLHF-abe03f9afdac42b9a5bee746844518d0)!** 🚀🚀🚀🔥🔥
+
+🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
 ## Installation instructions
 
