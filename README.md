@@ -13,7 +13,8 @@ Check out our [blog post](https://efficient-unicorn-451.notion.site/Reward-Model
 
 To be updated.
 
-The current solution is based on the alignment handbbok and the environment, which should be sufficient for plain RM training.
+The current solution is based on the alignment handbook and the environment, which should be sufficient for plain RM training.
+Before starting, please make sure your linux machine has [nvidia-cuda-toolkit](https://developer.nvidia.com/cuda-toolkit) installed.
 
 ```shell
 conda create -n newhandbook python=3.10.9
