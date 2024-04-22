@@ -33,6 +33,13 @@ class ScriptArguments:
         default="",
         metadata={"help": "the name of the gold reward model"},
     )
+    bf16: Optional[bool] = field(
+        default=True,
+        metadata={
+            "help": "This essentially cuts the training time in half if you want to sacrifice a little precision and have a supported GPU."
+        },
+    )
+    
 
 names = [
     "Chat",
@@ -64,12 +71,13 @@ device = accelerator.device
 rm_name = script_args.reward_name_or_path
 rm_tokenizer = AutoTokenizer.from_pretrained(rm_name)
 
+dtype = torch.bfloat16 if script_args.bf16 else torch.float32
 rm_pipe = pipeline(
     "sentiment-analysis",
     model=rm_name,
     device=device,
     tokenizer=rm_tokenizer,
-    model_kwargs={"torch_dtype": torch.bfloat16},
+    model_kwargs={"torch_dtype": dtype},
     truncation=True
 )
 pipe_kwargs = {
