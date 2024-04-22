@@ -85,7 +85,7 @@ world_size = int(os.getenv("WORLD_SIZE", "1"))
 # Weighted reasoning evaluation
 
 
-for k in range(13):
+for k in range(len(names)):
     script_args.json_path = str(k+1)
 
     if int(script_args.json_path) <= 4:
