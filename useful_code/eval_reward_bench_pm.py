@@ -204,7 +204,7 @@ row = {'attribute': attribute, **scores_per_section}
 df_final = df_final._append(row, ignore_index=True)
 print('model:', script_args.preference_name_or_path)
 with open(record_dir, 'a') as f:
-    f.write(script_args.reward_name_or_path + "\n")
+    f.write(script_args.preference_name_or_path + "\n")
     for col in ['Chat', 'Chat Hard', 'Safety', 'Reasoning']:
         print(f"{col}: {df_final[col].values[0]}")
 
