@@ -3,7 +3,7 @@ from typing import Optional
 import torch
 from datasets import load_dataset
 from tqdm import tqdm
-from transformers import AutoTokenizer, HfArgumentParser, pipeline
+from transformers import AutoTokenizer, HfArgumentParser, pipeline, AutoModelForCausalLM
 import numpy as np
 import pandas as pd
 tqdm.pandas()
@@ -38,8 +38,8 @@ device = 0
 
 model = AutoModelForCausalLM.from_pretrained(script_args.preference_name_or_path,
                                              torch_dtype=torch.bfloat16, attn_implementation="flash_attention_2").cuda()
-tokenizer = AutoTokenizer.from_pretrained(script_args.preference_name_or_path, use_fast=True)
-tokenizer_plain = AutoTokenizer.from_pretrained(script_args.preference_name_or_path, use_fast=True)
+tokenizer = AutoTokenizer.from_pretrained("/home/cyeab/axtool/models/llama3_it_427_update", use_fast=True)
+tokenizer_plain = AutoTokenizer.from_pretrained("/home/cyeab/axtool/models/llama3_it_427_update", use_fast=True)
 tokenizer_plain.chat_template = "\n{% for message in messages %}{% if loop.index0 % 2 == 0 %}\n\n<turn> user\n {{ message['content'] }}{% else %}\n\n<turn> assistant\n {{ message['content'] }}{% endif %}{% endfor %}\n\n\n"
 
 prompt_template = "[CONTEXT] {context} [RESPONSE A] {response_A} [RESPONSE B] {response_B} \n"
@@ -50,7 +50,7 @@ token_id_A = token_id_A[0]
 token_id_B = token_id_B[0]
 temperature = 1.0
 
-
+ 
 ds = load_dataset(ds_dir, split='filtered', keep_in_memory=True)
 df = pd.DataFrame(columns=['id', 'subset', 'correct'])
 
@@ -202,7 +202,7 @@ for subset in all_subsets:
 scores_per_section = calculate_scores_per_section(EXAMPLE_COUNTS, SUBSET_MAPPING, metrics)
 row = {'attribute': attribute, **scores_per_section}
 df_final = df_final._append(row, ignore_index=True)
-print('model:', script_args.reward_name_or_path)
+print('model:', script_args.preference_name_or_path)
 with open(record_dir, 'a') as f:
     f.write(script_args.reward_name_or_path + "\n")
     for col in ['Chat', 'Chat Hard', 'Safety', 'Reasoning']:
