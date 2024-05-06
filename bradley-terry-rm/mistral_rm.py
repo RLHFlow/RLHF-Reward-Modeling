@@ -71,7 +71,7 @@ class ScriptArguments:
         metadata={"help": "The dir of the subset of the eval data to use"},
     )
     output_path: Optional[str] = field(
-        default="./models/mistral_rm_test",
+        default="./bt_models/mistral_rm_test",
         metadata={"help": "The dir for output model"},
     )
     gradient_checkpointing: Optional[bool] = field(

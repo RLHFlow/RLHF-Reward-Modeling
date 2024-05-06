@@ -72,7 +72,7 @@ class ScriptArguments:
         metadata={"help": "The dir of the subset of the eval data to use"},
     )
     output_path: Optional[str] = field(
-        default="./models/gemma2b_rm",
+        default="./bt_models/gemma2b_rm",
         metadata={"help": "The dir for output model"},
     )
     gradient_checkpointing: Optional[bool] = field(
