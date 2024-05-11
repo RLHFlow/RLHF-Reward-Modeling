@@ -2,7 +2,7 @@
 
 ## Installation instructions
 
-Before starting, please make sure your linux machine has [nvidia-cuda-toolkit](https://developer.nvidia.com/cuda-toolkit) installed. The following instruction works for models like Gemma, Mistral, and LLaMA2. For the latest model like LLaMA3, you may need to install some PR that has not been merged.
+Before starting, please make sure your linux machine has [nvidia-cuda-toolkit](https://developer.nvidia.com/cuda-toolkit) installed. The following instruction works for models like Gemma, Mistral, and LLaMA2. For the latest model like LLaMA3 (now LLaMA3 has been merged!), you may need to install some PR that has not been merged.
 
 ```shell
 conda create -n pm_dev python=3.10.9
@@ -15,13 +15,6 @@ pip install flash-attn
 ## Get axolotl for general model
 git clone https://github.com/OpenAccess-AI-Collective/axolotl
 cd axolotl
-pip install -e .
-
-## Get axolotl for LLaMA3
-git clone https://github.com/OpenAccess-AI-Collective/axolotl
-cd axolotl
-git fetch origin pull/1539/head:pr-1539
-git checkout pr-1539
 pip install -e .
 
 ## Get FastChat
