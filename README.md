@@ -2,54 +2,27 @@
 
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-🔥🔥🚀🚀🚀 **Check out our [blog post](https://efficient-unicorn-451.notion.site/Reward-Modeling-for-RLHF-abe03f9afdac42b9a5bee746844518d0)!** 🚀🚀🚀🔥🔥
+🔥🔥🚀🚀🚀 **The pairwise preference model training is available now!** 🚀🚀🚀🔥🔥
 
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
 
-TL;DL: this is a repo for training the reward model for [DRL-based RLHF (PPO)](https://arxiv.org/pdf/2203.02155.pdf), [Iterative SFT (Rejection sampling fine-tuning)](https://arxiv.org/pdf/2304.06767v4.pdf), and [iterative DPO](https://arxiv.org/pdf/2312.11456.pdf).
+<img width="625" alt="image" src="https://github.com/RLHFlow/RLHF-Reward-Modeling/assets/90632760/bf5184c9-0c06-464b-8f68-cb86d71eab25">
+
+
+TL;DL: this is a repo for training the reward/preference model for [DRL-based RLHF (PPO)](https://arxiv.org/pdf/2203.02155.pdf), [Iterative SFT (Rejection sampling fine-tuning)](https://arxiv.org/pdf/2304.06767v4.pdf), and [iterative DPO](https://arxiv.org/pdf/2312.11456.pdf).
 
 - 4 x A40 48G: we can train Gemma-7B-it with max_length 4096 by Deepspeed Zero-3 + gradient checkpoint;
 - 4 x A100 80G: we can train Gemma-7B-it with max_length 4096 by gradient checkpoint;
-- The resulting reward models achieve **SOTA performance** in the RMs with based model ≤ 13B in the leaderboard of [RewardBench](https://huggingface.co/spaces/allenai/reward-bench).
+- The resulting reward models achieve **SOTA performance** as open-source RMs in the leaderboard of [RewardBench](https://huggingface.co/spaces/allenai/reward-bench).
+- Check out our [blog post](https://efficient-unicorn-451.notion.site/Reward-Modeling-for-RLHF-abe03f9afdac42b9a5bee746844518d0)!
+
 
 
 ## Installation instructions
 
-To be updated.
+It is recommeded to create separate environmnets for the Bradley-Terry reward model and pair wise preference model. The installation instructions are provided in the corresponding folders.
 
-The current solution is based on the alignment handbook and the environment, which should be sufficient for plain RM training.
-Before starting, please make sure your linux machine has [nvidia-cuda-toolkit](https://developer.nvidia.com/cuda-toolkit) installed.
-
-```shell
-conda create -n newhandbook python=3.10.9
-conda activate newhandbook
-
-git clone https://github.com/huggingface/alignment-handbook.git
-cd ./alignment-handbook/
-git checkout d17fd7cd3b71c6a7bf7af34d8dc73135bb7ea8e9
-python -m pip install .
-pip install flash-attn
-
-git clone https://github.com/WeiXiongUST/RLHF-Reward-Modeling.git
-```
-
-Some possible problems:
-
-`CUDA_HOME` may not exist, unable to compile CUDA op(s)AssertionError:[end of output]
-
-```shell
-conda install nvidia/label/cuda-12.2.0::cuda-nvcc
-```
-
-You also need to install wandb to record the training and log in with the huggingface accout to access Gemma.
-
-```shell
-pip install wandb
-wandb login
-
-huggingface-cli login
-```
 
 ## Dataset Preparation
 The dataset should be preprocessed as the standard format, where each of the sample consists of two conversations 'chosen' and 'rejected' and they share the same prompt. Here is an example of the rejected sample in the comparison pair. 
@@ -70,24 +43,6 @@ We preprocess many open-source preference datasets into the standard format and 
 - [hendrydong/preference_700K](https://huggingface.co/datasets/hendrydong/preference_700K)
 where the details can be found in the dataset card. 
 
-## Running the Code
-
-Running the code with Gemma-2b-it. 
-
-```shell
-accelerate launch ./bradley-terry-rm/gemma_rm.py --model_name google/gemma-2b-it --max_length 4096 --train_set_path weqweasdas/preference_dataset_mix2
-```
-
-You can also modify the learning rate, batch size, output_path.. with either command or modify the ScriptArguments in the rm_gemma.py
-
-If you encounter out-of-memory issue. Running the code with Gemma-2b-it with deepspeed stage 3. If OOM still exists, use a smaller max length and per_device_batch_size.
-
-```shell
-accelerate launch ./bradley-terry-rm/gemma_rm.py --model_name google/gemma-2b-it --max_length 4096 --train_set_path weqweasdas/preference_dataset_mix2 --deepspeed ./deepspeed_configs/deepspeed_3.json
-```
-
-**REMARK: note that with deepspeed stage 3, the final mode saving does not work normally. You should set the save_every_steps as the total number of training steps - 1 so that the trainer will save a model for you just before finishing the training.**
-
 ## Evaluation Results
 
 You can evaluate the resulting reward model with the dataset provided by [benchmark](https://huggingface.co/datasets/allenai/reward-bench) by the following command.
@@ -105,7 +60,7 @@ Some models trained by our script are competitive in the leaderboard.
 
 - [x]  Bradley-Terry Reward Model based on Gemma and Mistral.
 - [ ]  Bradley-Terry Reward Model based on Mixtral;
-- [ ]  Preference model;
+- [x]  Preference model;
 - [ ]  Regression-based reward model;
 - [ ]  Multi-objective reward model.
 
