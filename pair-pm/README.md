@@ -102,11 +102,13 @@ temperature = 1.0
 
 
 model.eval()
-prompt = "AAAA"
 response_chosen = "BBBB"
 response_rejected = "CCCC"
 
-instruction = [{"role": "user", "content": prompt}]
+instruction = [{"role": "user", "content": ...},
+{"role": "assistant", "content": ...},
+{"role": "user", "content": ...},
+]
 context = tokenizer_plain.apply_chat_template(instruction, tokenize=False)
 responses = [response_chosen, response_rejected]
 probs_chosen = []
