@@ -4,8 +4,6 @@
 
 🔥🔥🚀🚀🚀 **The [pairwise preference model](https://huggingface.co/RLHFlow/pair-preference-model-LLaMA3-8B) training is available now!** 🚀🚀🚀🔥🔥
 
-🔥🔥🚀🚀🚀 **RLHF Workflow: From Reward Modeling to Online RLHF 🚀🚀🚀🔥🔥
-
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
 + **Tech Report**
@@ -73,11 +71,9 @@ Some models trained by our script are competitive in the leaderboard.
 
 ## To Do
 
-- [x]  Bradley-Terry Reward Model based on Gemma and Mistral.
-- [ ]  Bradley-Terry Reward Model based on Mixtral;
-- [x]  Preference model;
-- [ ]  Regression-based reward model;
-- [ ]  Multi-objective reward model.
+- [x]  Bradley-Terry Reward Model
+- [x]  Preference model
+- [ ]  Multi-Objective Reward Model
 
 ## Citation
 
@@ -92,18 +88,18 @@ The repo was part of the iterative rejection sampling fine-tuning and iterative 
 }
 
 @article{dong2023raft,
-  title={Raft: Reward ranked finetuning for generative foundation model alignment},
-  author={Dong, Hanze and Xiong, Wei and Goyal, Deepanshu and Pan, Rui and Diao, Shizhe and Zhang, Jipeng and Shum, Kashun and Zhang, Tong},
-  journal={arXiv preprint arXiv:2304.06767},
-  year={2023}
+  title={{RAFT}: Reward rAnked FineTuning for Generative Foundation Model Alignment},
+  author={Hanze Dong and Wei Xiong and Deepanshu Goyal and Yihan Zhang and Winnie Chow and Rui Pan and Shizhe Diao and Jipeng Zhang and KaShun SHUM and Tong Zhang},
+  journal={Transactions on Machine Learning Research},
+  issn={2835-8856},
+  year={2023},
+  url={https://openreview.net/forum?id=m7p5O7zblY},
 }
 
-@misc{xiong2024iterative,
+@article{xiong2024iterative,
       title={Iterative Preference Learning from Human Feedback: Bridging Theory and Practice for RLHF under KL-Constraint}, 
       author={Wei Xiong and Hanze Dong and Chenlu Ye and Ziqi Wang and Han Zhong and Heng Ji and Nan Jiang and Tong Zhang},
       year={2024},
-      eprint={2312.11456},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG}
+      journal={ICML}
 }
 ```
