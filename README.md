@@ -2,13 +2,29 @@
 
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-🔥🔥🚀🚀🚀 **The pairwise preference model training is available now!** 🚀🚀🚀🔥🔥
+🔥🔥🚀🚀🚀 **The [pairwise preference model](https://huggingface.co/RLHFlow/pair-preference-model-LLaMA3-8B) training is available now!** 🚀🚀🚀🔥🔥
+
+🔥🔥🚀🚀🚀 **RLHF Workflow: From Reward Modeling to Online RLHF 🚀🚀🚀🔥🔥
 
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
++ **Tech Report**
+  + [RLHF Workflow: From Reward Modeling to Online RLHF](https://arxiv.org/abs/2405.07863)
++ **Models**:
+  + Pairwise Preference Reward Model: [pair-preference-model-LLaMA3-8B](https://huggingface.co/RLHFlow/pair-preference-model-LLaMA3-8B) 
+  + Bradley-Terry Reward Model: [FsfairX-LLaMA3-RM-v0.1](https://huggingface.co/sfairXC/FsfairX-LLaMA3-RM-v0.1)
 
-<img width="625" alt="image" src="https://github.com/RLHFlow/RLHF-Reward-Modeling/assets/90632760/bf5184c9-0c06-464b-8f68-cb86d71eab25">
++ **Architectures**
+  
+  <img width="625" alt="image" src="https://github.com/RLHFlow/RLHFlow.github.io/blob/main/assets/BT-and-Pref-RMs.png?raw=true">
 
++ **RewardBench LeaderBoard**
+  
+  <img width="1388" alt="Screenshot 2024-05-23 at 5 11 26 PM" src="https://github.com/RLHFlow/RLHF-Reward-Modeling/assets/26175855/1205edbb-7b87-497b-bf2c-0028f3564089">
+
++ **Evaluation Results** (from [RLHF Workflow](https://arxiv.org/abs/2405.07863))
+  
+  <img width="625" alt="image" src="https://github.com/RLHFlow/RLHF-Reward-Modeling/assets/90632760/bf5184c9-0c06-464b-8f68-cb86d71eab25">
 
 TL;DL: this is a repo for training the reward/preference model for [DRL-based RLHF (PPO)](https://arxiv.org/pdf/2203.02155.pdf), [Iterative SFT (Rejection sampling fine-tuning)](https://arxiv.org/pdf/2304.06767v4.pdf), and [iterative DPO](https://arxiv.org/pdf/2312.11456.pdf).
 
@@ -16,7 +32,6 @@ TL;DL: this is a repo for training the reward/preference model for [DRL-based RL
 - 4 x A100 80G: we can train Gemma-7B-it with max_length 4096 by gradient checkpoint;
 - The resulting reward models achieve **SOTA performance** as open-source RMs in the leaderboard of [RewardBench](https://huggingface.co/spaces/allenai/reward-bench).
 - Check out our [blog post](https://efficient-unicorn-451.notion.site/Reward-Modeling-for-RLHF-abe03f9afdac42b9a5bee746844518d0)!
-
 
 
 ## Installation instructions
@@ -66,9 +81,16 @@ Some models trained by our script are competitive in the leaderboard.
 
 ## Citation
 
-The repo was part of the iterative rejection sampling fine-tuning and iterative DPO. If you find the content of this repo useful in your work, please consider cite it as follows:
+The repo was part of the iterative rejection sampling fine-tuning and iterative DPO. If you find the content of this repo useful in your work, please consider citing:
 
 ```bibtex
+@article{dong2024rlhf,
+  title={RLHF Workflow: From Reward Modeling to Online RLHF},
+  author={Dong, Hanze and Xiong, Wei and Pang, Bo and Wang, Haoxiang and Zhao, Han and Zhou, Yingbo and Jiang, Nan and Sahoo, Doyen and Xiong, Caiming and Zhang, Tong},
+  journal={arXiv preprint arXiv:2405.07863},
+  year={2024}
+}
+
 @article{dong2023raft,
   title={Raft: Reward ranked finetuning for generative foundation model alignment},
   author={Dong, Hanze and Xiong, Wei and Goyal, Deepanshu and Pan, Rui and Diao, Shizhe and Zhang, Jipeng and Shum, Kashun and Zhang, Tong},
