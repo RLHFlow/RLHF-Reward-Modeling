@@ -16,8 +16,10 @@
   + Bradley-Terry Reward Model: [FsfairX-LLaMA3-RM-v0.1](https://huggingface.co/sfairXC/FsfairX-LLaMA3-RM-v0.1)
 
 + **Architectures**
-  
-  <img width="625" alt="image" src="https://github.com/RLHFlow/RLHFlow.github.io/blob/main/assets/BT-and-Pref-RMs.png?raw=true">
+  + Bradley-Terry (BT) Reward Model and Pairwise Preference Model
+    <img width="625" alt="image" src="https://github.com/RLHFlow/RLHFlow.github.io/blob/main/assets/BT-and-Pref-RMs.png?raw=true">
+  + Arbitrary-Rating Multi-Objective Reward Model (ArmoRM)
+    <img width="625" alt="image" src="https://github.com/RLHFlow/RLHFlow.github.io/blob/main/assets/ArmoRM-MoE.png?raw=true">
 
 + **RewardBench LeaderBoard**
 
