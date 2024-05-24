@@ -19,13 +19,13 @@
 
 ## RewardBench LeaderBoard
 
-  | Base Model                                                                      | Method | Score | Chat | Chat Hard | Safety | Reasoning | Prior Sets (0.5 weight) |
-|:--------------------------------------------------------------------------------|:-------|:-----:|:-----|:----------|:-------|:----------|:-----------------------|
-  | ArmoRM-Llama3-8B-v0.1                                                           | Llama-3 8B | ArmoRM + MoE | 88.87 | 97.2 | 76.3 | 92.1 | 97.3 | 74.1 |
-| Cohere May 2024                                                                 | Unknown | Unknown  | 88.25 | 96.4 | 71.3 | 92.7 | 97.7 | 78.2 |
-| GPT-4 Turbo (0125 version)                                                      | GPT-4 Turbo | LLM-as-a-Judge | 84.25 | 95.3 | 74.3 | 87.2 | 86.9 | 70.9 |
-| [FsfairX-LLaMA3-RM-v0.1](https://huggingface.co/sfairXC/FsfairX-LLaMA3-RM-v0.1) | Llama-3 8B | Bradley-Terry | 83.61 | 99.4 | 65.1 | 87.8 | 86.4 | 74.9 |
-| [Starling-RM-34B](https://huggingface.co/Nexusflow/Starling-RM-34B)             | Yi-34B | Bradley-Terry | 81.44 | 96.9 | 57.2 | 88.2 | 88.5 | 71.4 |
+ | Model  | Base Model                                                             | Method | Score | Chat | Chat Hard | Safety | Reasoning | Prior Sets (0.5 weight) |
+|:--------------------------------------------------------------------------------|:-----------------------------------------------------------------------|:-----:|:-----|:----------|:-------|:----------|:-----------------------|:------------------------|
+  | ArmoRM-Llama3-8B-v0.1                                                           | Llama-3 8B | ArmoRM + MoE | **88.97** | 96.9     | **76.8**  | **92.2** | **97.3**  | 74.3                    |
+  | Cohere May 2024                                                                 | Unknown | Unknown  | 88.25     | 96.4     | 71.3      | **92.7** | **97.7**  | **78.2**                |
+  | GPT-4 Turbo (0125 version)                                                      | GPT-4 Turbo | LLM-as-a-Judge | 84.25     | 95.3     | 74.3      | 87.2     | 86.9      | 70.9                    |
+  | [FsfairX-LLaMA3-RM-v0.1](https://huggingface.co/sfairXC/FsfairX-LLaMA3-RM-v0.1) | Llama-3 8B | Bradley-Terry | 83.61     | **99.4** | 65.1      | 87.8     | 86.4      | 74.9                    |
+  | [Starling-RM-34B](https://huggingface.co/Nexusflow/Starling-RM-34B)             | Yi-34B | Bradley-Terry | 81.44     | 96.9     | 57.2      | 88.2     | 88.5      | 71.4                    |
 
 ## Demo Code
 ```python
