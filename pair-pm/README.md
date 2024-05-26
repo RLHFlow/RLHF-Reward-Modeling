@@ -1,4 +1,7 @@
-# RLHF-Reward-Modeling: pair-Preference Model
+# RLHF-Reward-Modeling: Pairwise Preference Model
+
++ Models:
+  + Llama-3 8B: https://huggingface.co/RLHFlow/pair-preference-model-LLaMA3-8B 
 
 ## Installation instructions
 
@@ -79,9 +82,9 @@ CUDA_VISIBLE_DEVICES="0,1,2,3" torchrun --nproc_per_node 4 --master_port 20001 -
 
 Finally, for the models without an official padding token (like Mistral and LLaMA3), you may need to set the padding token by prepare_model.py first.
 
-## Service the RM
+## Usage Example for Pairwise Comparison
 
-Here is an example to use the Preference Model to rank a pair. For n>2 responses, it is recommened to use the tournament style ranking strategy to get the best response so that the complexity is linear in n.
+Here is an example of using the Preference Model to rank a pair. For n>2 responses, it is recommened to use the tournament style ranking strategy to get the best response so that the complexity is linear in n.
 
 ```python
 device = 0
