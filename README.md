@@ -13,14 +13,14 @@
 + **Tech Report**
   + [RLHF Workflow: From Reward Modeling to Online RLHF](https://arxiv.org/abs/2405.07863)
 + **Models**:
-  + Arbitrary-Rating Multi-Objective Reward Model (ArmoRM): [ArmoRM-Llama3-8B-v0.1](https://huggingface.co/RLHFlow/ArmoRM-Llama3-8B-v0.1)
+  + Absolute-Rating Multi-Objective Reward Model (ArmoRM): [ArmoRM-Llama3-8B-v0.1](https://huggingface.co/RLHFlow/ArmoRM-Llama3-8B-v0.1)
   + Pairwise Preference Reward Model: [pair-preference-model-LLaMA3-8B](https://huggingface.co/RLHFlow/pair-preference-model-LLaMA3-8B) 
   + Bradley-Terry Reward Model: [FsfairX-LLaMA3-RM-v0.1](https://huggingface.co/sfairXC/FsfairX-LLaMA3-RM-v0.1)
 
 + **Architectures**
   + Bradley-Terry (BT) Reward Model and Pairwise Preference Model
     <img width="625" alt="image" src="https://github.com/RLHFlow/RLHFlow.github.io/blob/main/assets/BT-and-Pref-RMs.png?raw=true">
-  + Arbitrary-Rating Multi-Objective Reward Model (ArmoRM)
+  + Absolute-Rating Multi-Objective Reward Model (ArmoRM)
     <img width="625" alt="image" src="https://github.com/RLHFlow/RLHFlow.github.io/blob/main/assets/ArmoRM-MoE.png?raw=true">
 
 + **[RewardBench LeaderBoard](https://huggingface.co/spaces/allenai/reward-bench)**
