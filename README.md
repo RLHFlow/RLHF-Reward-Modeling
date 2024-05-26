@@ -2,9 +2,11 @@
 
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-🚀 **Our [ArmoRM](https://huggingface.co/RLHFlow/ArmoRM-Llama3-8B-v0.1) is the Rank #1 on RewardBench** 
+🚀 **Our [ArmoRM](https://huggingface.co/RLHFlow/ArmoRM-Llama3-8B-v0.1) is the Rank #1 on RewardBench!** 
 
-🚀 **The [pairwise preference model](https://huggingface.co/RLHFlow/pair-preference-model-LLaMA3-8B) training is available!**
+🚀 **The top-3 open-source reward models on RewardBench ([ArmoRM](https://huggingface.co/RLHFlow/ArmoRM-Llama3-8B-v0.1), [Pair Pref. Model](https://huggingface.co/RLHFlow/pair-preference-model-LLaMA3-8B), [BT RM](https://huggingface.co/sfairXC/FsfairX-LLaMA3-RM-v0.1)) are all trained with this repo!**
+
+🚀 **The [pairwise preference model](https://huggingface.co/RLHFlow/pair-preference-model-LLaMA3-8B) training code is available (`pair-pm/`)!**
 
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
