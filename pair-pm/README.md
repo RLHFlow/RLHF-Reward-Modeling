@@ -2,7 +2,9 @@
 
 + Models:
   + Llama-3 8B: https://huggingface.co/RLHFlow/pair-preference-model-LLaMA3-8B 
-
++ Blog: https://rlhflow.github.io/posts/2024-05-29-multi-objective-reward-modeling/
++ Tech Report: To be released in June 2024 (together with the training code)
+  
 ## Installation instructions
 
 Before starting, please make sure your linux machine has [nvidia-cuda-toolkit](https://developer.nvidia.com/cuda-toolkit) installed. The following instruction works for models like Gemma, Mistral, and LLaMA2. For the latest model like LLaMA3 (now LLaMA3 has been merged!), you may need to install some PR that has not been merged.
