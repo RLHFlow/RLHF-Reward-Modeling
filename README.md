@@ -1,5 +1,16 @@
 # RLHF-Reward-Modeling
 
+Our models have contributed to many academic research projects, e.g.,
+
+1. Xu Zhangchen, et al. "Magpie: Alignment Data Synthesis from Scratch by Prompting Aligned LLMs with Nothing."
+2. Chen, Lichang, et al. "OPTune: Efficient Online Preference Tuning."
+3. Xie, Tengyang, et al. "Exploratory Preference Optimization: Harnessing Implicit Q*-Approximation for Sample-Efficient RLHF." arXiv preprint arXiv:2405.21046 (2024).
+4. Zhong, Han, et al. "Dpo meets ppo: Reinforced token optimization for rlhf." arXiv preprint arXiv:2404.18922 (2024).
+5. Zheng, Chujie, et al. "Weak-to-strong extrapolation expedites alignment." arXiv preprint arXiv:2404.16792 (2024).
+6. Ye, Chenlu, et al. "A theoretical analysis of nash learning from human feedback under general kl-regularized preference." arXiv preprint arXiv:2402.07314 (2024).
+
+
+
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
 🚀 **Our [ArmoRM](https://huggingface.co/RLHFlow/ArmoRM-Llama3-8B-v0.1) is the Rank #1 on RewardBench!** 
@@ -81,16 +92,14 @@ You can evaluate the resulting reward model with the dataset provided by [benchm
 CUDA_VISIBLE_DEVICES=1 python ./useful_code/eval_reward_bench_bt.py --reward_name_or_path ./models/gemma_2b_mixture2_last_checkpoint --record_dir ./bench_mark_eval.txt
 ```
 
-Some models trained by our script are competitive in the leaderboard. 
-
-![image](https://github.com/WeiXiongUST/RLHF-Reward-Modeling/assets/90632760/49f1663d-4dbb-4513-80cb-3fab00f6f955)
 
 
 ## To Do
 
 - [x]  Bradley-Terry Reward Model
 - [x]  Preference model
-- [ ]  Multi-Objective Reward Model
+- [x]  Multi-Objective Reward Model
+- [ ]  LLM-as-a-judge
 
 ## Citation
 
