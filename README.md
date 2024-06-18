@@ -8,6 +8,7 @@ Our models have contributed to many academic research projects, e.g.,
 4. Zhong, Han, et al. "Dpo meets ppo: Reinforced token optimization for rlhf." arXiv preprint arXiv:2404.18922 (2024).
 5. Zheng, Chujie, et al. "Weak-to-strong extrapolation expedites alignment." arXiv preprint arXiv:2404.16792 (2024).
 6. Ye, Chenlu, et al. "A theoretical analysis of nash learning from human feedback under general kl-regularized preference." arXiv preprint arXiv:2402.07314 (2024).
+7. Chen, Ruijun, et al. "Self-Evolution Fine-Tuning for Policy Optimization"
 
 
 
