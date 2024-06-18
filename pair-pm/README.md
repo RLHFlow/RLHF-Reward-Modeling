@@ -28,6 +28,7 @@ cd FastChat
 pip install -e .
 
 git clone https://github.com/WeiXiongUST/RLHF-Reward-Modeling.git
+pip install deepspeed
 ```
 
 You also need to install wandb to record the training and log in with the huggingface accout to access Gemma.
@@ -68,7 +69,7 @@ where the details can be found in the dataset card.
 Running the code with Gemma-2b-it.
 
 ```shell
-CUDA_VISIBLE_DEVICES="0,1,2,3" torchrun --nproc_per_node 4 --master_port 20001 -m axolotl.cli.train gemma-2b-it.yml
+CUDA_VISIBLE_DEVICES="0,1,2,3" torchrun --nproc_per_node 4 --master_port 20001 -m axolotl.cli.train gemma-2b-it.yaml
 ```
 
 You can also modify the learning rate, batch size, output_path.. with either command or modify the ScriptArguments in the gemma-2b-it.yml
