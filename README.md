@@ -14,9 +14,9 @@ Our models have contributed to many academic research projects, e.g.,
 
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-🚀 **Our [ArmoRM](https://huggingface.co/RLHFlow/ArmoRM-Llama3-8B-v0.1) is the Rank #1 on RewardBench!** 
+🚀 **Our [ArmoRM](https://huggingface.co/RLHFlow/ArmoRM-Llama3-8B-v0.1) is the Rank #1 8B model on RewardBench!** 
 
-🚀 **The top-3 open-source reward models on RewardBench ([ArmoRM](https://huggingface.co/RLHFlow/ArmoRM-Llama3-8B-v0.1), [Pair Pref. Model](https://huggingface.co/RLHFlow/pair-preference-model-LLaMA3-8B), [BT RM](https://huggingface.co/sfairXC/FsfairX-LLaMA3-RM-v0.1)) are all trained with this repo!**
+🚀 **The top-3 open-source 8B reward models on RewardBench ([ArmoRM](https://huggingface.co/RLHFlow/ArmoRM-Llama3-8B-v0.1), [Pair Pref. Model](https://huggingface.co/RLHFlow/pair-preference-model-LLaMA3-8B), [BT RM](https://huggingface.co/sfairXC/FsfairX-LLaMA3-RM-v0.1)) are all trained with this repo!**
 
 🚀 **The [pairwise preference model](https://huggingface.co/RLHFlow/pair-preference-model-LLaMA3-8B) training code is available (`pair-pm/`)!**
 
@@ -24,6 +24,7 @@ Our models have contributed to many academic research projects, e.g.,
 
 + **Tech Report**
   + [RLHF Workflow: From Reward Modeling to Online RLHF](https://arxiv.org/abs/2405.07863)
+  + [[ArmoRM] Interpretable Preferences via Multi-Objective Reward Modeling and Mixture-of-Experts](https://arxiv.org/abs/2406.12845)
 + **Models**:
   + Absolute-Rating Multi-Objective Reward Model (ArmoRM): [ArmoRM-Llama3-8B-v0.1](https://huggingface.co/RLHFlow/ArmoRM-Llama3-8B-v0.1)
   + Pairwise Preference Reward Model: [pair-preference-model-LLaMA3-8B](https://huggingface.co/RLHFlow/pair-preference-model-LLaMA3-8B) 
@@ -113,6 +114,13 @@ The repo was part of the iterative rejection sampling fine-tuning and iterative 
   journal={arXiv preprint arXiv:2405.07863},
   year={2024}
 }
+
+@article{ArmoRM,
+      title={Interpretable Preferences via Multi-Objective Reward Modeling and Mixture-of-Experts}, 
+      author={Haoxiang Wang and Wei Xiong and Tengyang Xie and Han Zhao and Tong Zhang},
+      journal={arXiv preprint arXiv:2406.12845},
+}
+
 
 @article{dong2023raft,
   title={{RAFT}: Reward rAnked FineTuning for Generative Foundation Model Alignment},
