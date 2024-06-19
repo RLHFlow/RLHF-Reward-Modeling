@@ -6,8 +6,8 @@
 
     [Haoxiang Wang*](https://haoxiang-wang.github.io/), [Wei Xiong*](https://weixiongust.github.io/WeiXiongUST/index.html), [Tengyang Xie](https://tengyangxie.github.io/), [Han Zhao](https://hanzhaoml.github.io/), [Tong Zhang](https://tongzhang-ml.org/)
 
-+ **Blog**: To appear soon (with implementation details)
-+ **Tech Report**: To be released in June 2024
++ **Blog**: https://rlhflow.github.io/posts/2024-05-29-multi-objective-reward-modeling/
++ **Tech Report**: https://arxiv.org/abs/2406.12845 
 + **Model**: [ArmoRM-Llama3-8B-v0.1](https://huggingface.co/RLHFlow/ArmoRM-Llama3-8B-v0.1)
   + Finetuned from model: [FsfairX-LLaMA3-RM-v0.1](https://huggingface.co/sfairXC/FsfairX-LLaMA3-RM-v0.1)
 - **Code Repository:** https://github.com/RLHFlow/RLHF-Reward-Modeling/
