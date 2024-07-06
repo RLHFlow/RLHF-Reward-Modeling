@@ -1,6 +1,6 @@
 # RLHF-Reward-Modeling
 
-Our models have contributed to many academic research projects, e.g.,
+Our models and codes have contributed to many academic research projects, e.g.,
 
 1. Xu Zhangchen, et al. "Magpie: Alignment Data Synthesis from Scratch by Prompting Aligned LLMs with Nothing."
 2. Chen, Lichang, et al. "OPTune: Efficient Online Preference Tuning."
@@ -11,7 +11,8 @@ Our models have contributed to many academic research projects, e.g.,
 7. Chen, Ruijun, et al. "Self-Evolution Fine-Tuning for Policy Optimization"
 8. Li Bolian, et al., Cascade Reward Sampling for Efficient Decoding-Time Alignment
 9. Zhang, Yuheng, et al. "Iterative Nash Policy Optimization: Aligning LLMs with General Preferences via No-Regret Learning"
-
+10. Lin Tzu-Han, et al., "DogeRM: Equipping Reward Models with Domain Knowledge through Model Merging",
+11. Yang Rui, et al., "Regularizing Hidden States Enables Learning Generalizable Reward Model for LLMs"
 
 
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
