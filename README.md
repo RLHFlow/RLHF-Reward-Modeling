@@ -13,6 +13,8 @@ Our models and codes have contributed to many academic research projects, e.g.,
 9. Zhang, Yuheng, et al. "Iterative Nash Policy Optimization: Aligning LLMs with General Preferences via No-Regret Learning"
 10. Lin Tzu-Han, et al., "DogeRM: Equipping Reward Models with Domain Knowledge through Model Merging",
 11. Yang Rui, et al., "Regularizing Hidden States Enables Learning Generalizable Reward Model for LLMs"
+12. Junsoo Park, et al., "OffsetBias: Leveraging Debiased Data for Tuning Evaluators"
+13. Meng Yu, et al., "SimPO: Simple Preference Optimization with a Reference-Free Reward"
 
 
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
