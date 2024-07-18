@@ -21,11 +21,12 @@
 
  | Model  | Base Model                                                             | Method | Score | Chat | Chat Hard | Safety | Reasoning | Prior Sets (0.5 weight) |
 |:--------------------------------------------------------------------------------|:-----------------------------------------------------------------------|:-----:|:-----|:----------|:-------|:----------|:-----------------------|:------------------------|
-  | ArmoRM-Llama3-8B-v0.1                                                           | Llama-3 8B | ArmoRM + MoE | **88.97** | 96.9     | **76.8**  | **92.2** | **97.3**  | 74.3                    |
-  | Cohere May 2024                                                                 | Unknown | Unknown  | 88.25     | 96.4     | 71.3      | **92.7** | **97.7**  | **78.2**                |
-  | GPT-4 Turbo (0125 version)                                                      | GPT-4 Turbo | LLM-as-a-Judge | 84.25     | 95.3     | 74.3      | 87.2     | 86.9      | 70.9                    |
-  | [FsfairX-LLaMA3-RM-v0.1](https://huggingface.co/sfairXC/FsfairX-LLaMA3-RM-v0.1) | Llama-3 8B | Bradley-Terry | 83.61     | **99.4** | 65.1      | 87.8     | 86.4      | 74.9                    |
-  | [Starling-RM-34B](https://huggingface.co/Nexusflow/Starling-RM-34B)             | Yi-34B | Bradley-Terry | 81.44     | 96.9     | 57.2      | 88.2     | 88.5      | 71.4                    |
+  | ArmoRM-Llama3-8B-v0.1                                                           | Llama-3 8B | ArmoRM + MoE | **89.0** | 96.9     | **76.8**  | **92.2** | **97.3**  | 74.3                    |
+  | Cohere May 2024                                                                 | Unknown | Unknown  | 88.3     | 96.4     | 71.3      | **92.7** | **97.7**  | **78.2**                |
+  | [pair-preference-model](https://huggingface.co/RLHFlow/pair-preference-model-LLaMA3-8B)| Llama-3 8B | [SliC-HF](https://arxiv.org/abs/2305.10425) | 85.7 | 98.3 | 65.8 | 89.7 | 94.7 | 74.6 |
+  | GPT-4 Turbo (0125 version)                                                      | GPT-4 Turbo | LLM-as-a-Judge | 84.3     | 95.3     | 74.3      | 87.2     | 86.9      | 70.9                    |
+  | [FsfairX-LLaMA3-RM-v0.1](https://huggingface.co/sfairXC/FsfairX-LLaMA3-RM-v0.1) | Llama-3 8B | Bradley-Terry | 83.6     | **99.4** | 65.1      | 87.8     | 86.4      | 74.9                    |
+  | [Starling-RM-34B](https://huggingface.co/Nexusflow/Starling-RM-34B)             | Yi-34B | Bradley-Terry | 81.4     | 96.9     | 57.2      | 88.2     | 88.5      | 71.4                    |
 
 ## Demo Code
 ```python
@@ -92,14 +93,92 @@ print(helpsteer_rewards_pred)
 # [2.78125   2.859375  3.484375  1.3847656 1.296875 ]
 ```
 
+## Easy to use Pipeline
+
+```python
+from typing import Dict, List
+import torch
+from transformers import AutoModelForSequenceClassification, AutoTokenizer
+
+
+class ArmoRMPipeline:
+    def __init__(self, model_id, device_map="auto", torch_dtype=torch.bfloat16, truncation=True, trust_remote_code=False, max_length=4096):
+        self.model = AutoModelForSequenceClassification.from_pretrained(
+            model_id,
+            device_map=device_map,
+            trust_remote_code=trust_remote_code,
+            torch_dtype=torch_dtype,
+        )
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            model_id,
+            use_fast=True,
+        )
+        self.truncation = truncation
+        self.device = self.model.device
+        self.max_length = max_length
+
+    def __call__(self, messages: List[Dict[str, str]]) -> Dict[str, float]:
+        """
+        messages: OpenAI chat messages to be scored
+        Note: no batching since due to length differences, the model will have to pad to the max length which is not efficient
+        Returns: a dictionary with the score between 0 and 1
+        """
+        input_ids = self.tokenizer.apply_chat_template(
+            messages,
+            return_tensors="pt",
+            padding=True,
+            truncation=self.truncation,
+            max_length=self.max_length,
+        ).to(self.device)
+        with torch.no_grad():
+            output = self.model(input_ids)
+            score = output.score.float().item()
+        return {"score": score}
+
+# Create Reward Model Pipeline 
+prompt = 'What are some synonyms for the word "beautiful"?'
+rm = ArmoRMPipeline("RLHFlow/ArmoRM-Llama3-8B-v0.1", trust_remote_code=True)
+# score the messages
+response1 = 'Nicely, Beautifully, Handsome, Stunning, Wonderful, Gorgeous, Pretty, Stunning, Elegant'
+score1 = rm([{"role": "user", "content": prompt}, {"role": "assistant", "content": response1}])
+print(score1)
+
+response2 = '''Certainly! Here are some synonyms for the word "beautiful":
+
+1. Gorgeous
+2. Lovely
+3. Stunning
+4. Attractive
+5. Pretty
+6. Elegant
+7. Exquisite
+8. Handsome
+9. Charming
+10. Alluring
+11. Radiant
+12. Magnificent
+13. Graceful
+14. Enchanting
+15. Dazzling
+
+These synonyms can be used in various contexts to convey the idea of beauty.'''
+score2 = rm([{"role": "user", "content": prompt}, {"role": "assistant", "content": response2}])
+print(score2)
+
+response3 = 'Sorry i cannot answer this.'
+score3 = rm([{"role": "user", "content": prompt}, {"role": "assistant", "content": response3}])
+print(score3)
+
+```
+
 ## Citation
 
 If you find this work useful for your research, please consider citing:
 ```
-@misc{wang2024interpretable,
-  title={Interpretable Preferences via Multi-Objective Reward Modeling and Mixture-of-Experts},
-  author={Wang, Haoxiang and Xiong, Wei and Xie, Tengyang and Zhao, Han and Zhang, Tong},
-  year={2024}
+@article{ArmoRM,
+      title={Interpretable Preferences via Multi-Objective Reward Modeling and Mixture-of-Experts}, 
+      author={Haoxiang Wang and Wei Xiong and Tengyang Xie and Han Zhao and Tong Zhang},
+      journal={arXiv preprint arXiv:2406.12845},
 }
 
 @inproceedings{wang2024arithmetic,
