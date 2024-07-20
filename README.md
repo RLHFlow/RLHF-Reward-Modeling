@@ -15,6 +15,7 @@ Our models and codes have contributed to many academic research projects, e.g.,
 11. Yang Rui, et al., "Regularizing Hidden States Enables Learning Generalizable Reward Model for LLMs"
 12. Junsoo Park, et al., "OffsetBias: Leveraging Debiased Data for Tuning Evaluators"
 13. Meng Yu, et al., "SimPO: Simple Preference Optimization with a Reference-Free Reward"
+14. Song Yifan, et al., "The Good, The Bad, and The Greedy: Evaluation of LLMs Should Not Ignore Non-Determinism"
 
 
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
