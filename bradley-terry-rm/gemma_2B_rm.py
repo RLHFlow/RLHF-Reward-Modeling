@@ -1,6 +1,6 @@
 ########################
 # This script is modified from the TRL package https://github.com/huggingface/trl/blob/main/examples/research_projects/stack_llama/scripts/reward_modeling.py
-# This script is designed for the reward modeling with Mistral model which should be handled carefully because it does not have an official pad token
+# This script is designed for the reward modeling with Gemma model but can also be applied to any models with a chat template and an official pad token
 # If you have any question, feel free to send me an email via wx13@illinois.edu
 ########################
 from dataclasses import dataclass, field
@@ -16,12 +16,14 @@ from transformers import (
     AutoModelForSequenceClassification,
     AutoTokenizer,
     HfArgumentParser,
+    PreTrainedTokenizerBase,
     Trainer,
+    TrainerCallback,
     TrainingArguments,
 )
 from transformers.utils import PaddingStrategy
 
-
+import pdb
 
 
 # Define and parse arguments.
@@ -34,6 +36,7 @@ class ScriptArguments:
         default=-1, metadata={"help": "Used for multi-gpu"})
 
     deepspeed: Optional[str] = field(
+        # default="dp3.json",
         default=None,
         metadata={
             "help": "Path to deepspeed config if using deepspeed. You may need this if the model that you want to train doesn't fit on a single GPU."
@@ -41,12 +44,11 @@ class ScriptArguments:
     )
     per_device_train_batch_size: Optional[int] = field(default=1)
     per_device_eval_batch_size: Optional[int] = field(default=1)
-    # for 8 GPU, the global batch size is 512
-    gradient_accumulation_steps: Optional[int] = field(default=64)
-    learning_rate: Optional[float] = field(default=2e-6)
+    gradient_accumulation_steps: Optional[int] = field(default=32)
+    learning_rate: Optional[float] = field(default=1e-5)
     weight_decay: Optional[float] = field(default=0.001)
     model_name: Optional[str] = field(
-        default="meta-llama/Meta-Llama-3-8B-Instruct",
+        default="google/gemma-2b-it", #"mistralai/Mistral-7B-Instruct-v0.2",
         metadata={
             "help": "The model that you want to train from the Hugging Face hub. E.g. gpt2, gpt2-xl, bert, etc."
         },
@@ -70,7 +72,7 @@ class ScriptArguments:
         metadata={"help": "The dir of the subset of the eval data to use"},
     )
     output_path: Optional[str] = field(
-        default="./models/llama3_rm_test",
+        default="./bt_models/gemma2b_rm",
         metadata={"help": "The dir for output model"},
     )
     gradient_checkpointing: Optional[bool] = field(
@@ -98,39 +100,32 @@ class ScriptArguments:
         metadata={"help": "Eval the model every x steps"},
     )
 
-
 parser = HfArgumentParser(ScriptArguments)
 script_args = parser.parse_args_into_dataclasses()[0]
 
 # Load the value-head model and tokenizer.
 tokenizer_name = script_args.model_name
-tokenizer = AutoTokenizer.from_pretrained(tokenizer_name, use_fast = False)
+tokenizer = AutoTokenizer.from_pretrained(tokenizer_name, use_auth_token=True)
 
 # Adjusted according to the base model
 # Need to do this for the models that don't have an official pad token.
-#tokenizer.pad_token = tokenizer.eos_token
-#tokenizer.pad_token_id = tokenizer.eos_token_id
-tokenizer.add_special_tokens({'pad_token': '[PAD]'})
-print(tokenizer.padding_side)
 tokenizer.truncation_side = "left"
 tokenizer.model_max_length = script_args.max_length
-# tokenizer.padding_side = "right"
-
-
 
 # Get the dataset
 train_path = script_args.train_set_path
 eval_path = script_args.eval_set_path
 output_name = script_args.output_path
 
-
 def build_dataset(tokenizer, train_path, eval_path):
 
     def tokenize(sample):
+        
         sample['positive'] = tokenizer.apply_chat_template(
             sample['chosen'], tokenize=False, add_generation_prompt=False).replace(tokenizer.bos_token, "")
         sample['negative'] = tokenizer.apply_chat_template(
             sample['rejected'], tokenize=False, add_generation_prompt=False).replace(tokenizer.bos_token, "")
+        
         tokenized_pos = tokenizer(sample['positive'], truncation=True)
         tokenized_neg = tokenizer(sample['negative'], truncation=True)
         sample["input_ids_j"] = tokenized_pos["input_ids"]
@@ -138,7 +133,7 @@ def build_dataset(tokenizer, train_path, eval_path):
         sample["input_ids_k"] = tokenized_neg["input_ids"]
         sample["attention_mask_k"] = tokenized_neg["attention_mask"]
         return sample
-
+    
     ds = load_dataset(train_path, split="train").shuffle(seed=42)
     #ds = ds.select(range(2000))
     ds = ds.map(tokenize, num_proc=8)
@@ -146,16 +141,13 @@ def build_dataset(tokenizer, train_path, eval_path):
     eval_dataset = None
 
     train_dataset = ds
-    #eval_dataset = load_dataset(eval_path, split="train").shuffle(seed=42).select(range(500))
-    eval_dataset = ds.select(range(500))
+    eval_dataset = load_dataset(eval_path, split="train").shuffle(seed=42).select(range(500))
+    #eval_dataset = ds.select(range(500))
     return train_dataset, eval_dataset
 
 
 train_dataset, eval_dataset = build_dataset(tokenizer, train_path, eval_path)
 print("Training set: ", len(train_dataset), " Eval set: ", len(eval_dataset))
-
-# Define the trainer
-
 
 # Define the trainer
 training_args = TrainingArguments(
@@ -184,14 +176,22 @@ training_args = TrainingArguments(
     report_to='wandb'
 )
 
+# enable if you want to train with lora
+# peft_config = LoraConfig(
+#     task_type=TaskType.SEQ_CLS,
+#     inference_mode=False,
+#     r=8,
+#     lora_alpha=32,
+#     lora_dropout=0.1,
+# )
+
 model = AutoModelForSequenceClassification.from_pretrained(
     script_args.model_name, num_labels=1, torch_dtype=torch.bfloat16, use_flash_attention_2=True,
 )
+# model = get_peft_model(model, peft_config)
+# model.print_trainable_parameters()
 
 model.config.use_cache = not script_args.gradient_checkpointing
-model.config.pad_token_id = tokenizer.pad_token_id
-model.resize_token_embeddings(len(tokenizer))
-
 num_proc = 24  # Can adjust to be higher if you have more processors.
 original_columns = train_dataset.column_names
 
@@ -207,7 +207,6 @@ class RewardDataCollatorWithPadding:
 
     def __call__(self, features: List[Dict[str, Any]]) -> Dict[str, Any]:
         merged_features = []
-
         for feature in features:
             merged_features.append(
                 {

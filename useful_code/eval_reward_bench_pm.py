@@ -22,7 +22,7 @@ class ScriptArguments:
         default="./bench_mark_eval.txt",
         metadata={"help": "the location of the output file"},
     )
-    preference_name_or_path: Optional[str] = field(
+    reward_name_or_path: Optional[str] = field(
         default="/home/cyeab/axtool/models/llama8b_it_data_henrydong/checkpoint-1308",
         metadata={"help": "the name of the gold reward model"},
     )
@@ -36,10 +36,10 @@ record_dir = script_args.record_dir
 
 device = 0
 
-model = AutoModelForCausalLM.from_pretrained(script_args.preference_name_or_path,
+model = AutoModelForCausalLM.from_pretrained(script_args.reward_name_or_path,
                                              torch_dtype=torch.bfloat16, attn_implementation="flash_attention_2").cuda()
-tokenizer = AutoTokenizer.from_pretrained("/home/cyeab/axtool/models/llama3_it_427_update", use_fast=True)
-tokenizer_plain = AutoTokenizer.from_pretrained("/home/cyeab/axtool/models/llama3_it_427_update", use_fast=True)
+tokenizer = AutoTokenizer.from_pretrained(script_args.reward_name_or_path, use_fast=True)
+tokenizer_plain = AutoTokenizer.from_pretrained(script_args.reward_name_or_path, use_fast=True)
 tokenizer_plain.chat_template = "\n{% for message in messages %}{% if loop.index0 % 2 == 0 %}\n\n<turn> user\n {{ message['content'] }}{% else %}\n\n<turn> assistant\n {{ message['content'] }}{% endif %}{% endfor %}\n\n\n"
 
 prompt_template = "[CONTEXT] {context} [RESPONSE A] {response_A} [RESPONSE B] {response_B} \n"
@@ -202,9 +202,9 @@ for subset in all_subsets:
 scores_per_section = calculate_scores_per_section(EXAMPLE_COUNTS, SUBSET_MAPPING, metrics)
 row = {'attribute': attribute, **scores_per_section}
 df_final = df_final._append(row, ignore_index=True)
-print('model:', script_args.preference_name_or_path)
+print('model:', script_args.reward_name_or_path)
 with open(record_dir, 'a') as f:
-    f.write(script_args.preference_name_or_path + "\n")
+    f.write(script_args.reward_name_or_path + "\n")
     for col in ['Chat', 'Chat Hard', 'Safety', 'Reasoning']:
         print(f"{col}: {df_final[col].values[0]}")
 

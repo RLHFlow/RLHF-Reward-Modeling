@@ -34,8 +34,6 @@ class ScriptArguments:
         default=-1, metadata={"help": "Used for multi-gpu"})
 
     deepspeed: Optional[str] = field(
-        # default="dp3.json",
-        #default="dp1.json",
         default=None,
         metadata={
             "help": "Path to deepspeed config if using deepspeed. You may need this if the model that you want to train doesn't fit on a single GPU."
@@ -43,11 +41,12 @@ class ScriptArguments:
     )
     per_device_train_batch_size: Optional[int] = field(default=1)
     per_device_eval_batch_size: Optional[int] = field(default=1)
+    # for 8 GPU, the global batch size is 512
     gradient_accumulation_steps: Optional[int] = field(default=64)
-    learning_rate: Optional[float] = field(default=5e-6)
+    learning_rate: Optional[float] = field(default=2e-6)
     weight_decay: Optional[float] = field(default=0.001)
     model_name: Optional[str] = field(
-        default="mistralai/Mistral-7B-Instruct-v0.2",
+        default="meta-llama/Meta-Llama-3-8B-Instruct",
         metadata={
             "help": "The model that you want to train from the Hugging Face hub. E.g. gpt2, gpt2-xl, bert, etc."
         },
@@ -63,15 +62,15 @@ class ScriptArguments:
         metadata={"help": "The number of training epochs for the reward model."},
     )
     train_set_path: Optional[str] = field(
-        default="weqweasdas/preference_dataset_mix2",
+        default="hendrydong/preference_700K",
         metadata={"help": "The dir of the subset of the training data to use"},
     )
     eval_set_path: Optional[str] = field(
-        default="weqweasdas/preference_dataset_mix2",
+        default="hendrydong/preference_700K",
         metadata={"help": "The dir of the subset of the eval data to use"},
     )
     output_path: Optional[str] = field(
-        default="./bt_models/mistral_rm_test",
+        default="./models/llama3_rm",
         metadata={"help": "The dir for output model"},
     )
     gradient_checkpointing: Optional[bool] = field(
@@ -116,7 +115,6 @@ print(tokenizer.padding_side)
 tokenizer.truncation_side = "left"
 tokenizer.model_max_length = script_args.max_length
 # tokenizer.padding_side = "right"
-###
 
 
 

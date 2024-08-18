@@ -3,7 +3,7 @@
 + Models:
   + Llama-3 8B: https://huggingface.co/RLHFlow/pair-preference-model-LLaMA3-8B 
 + Blog: https://rlhflow.github.io/posts/2024-05-29-multi-objective-reward-modeling/
-+ Tech Report: To be released in June 2024 (together with the training code)
++ Tech Report: [RLHF Workflow: From Reward Modeling to Online RLHF](https://arxiv.org/pdf/2405.07863)
   
 ## Installation instructions
 
@@ -59,8 +59,6 @@ We provide a script (process_pair_data.py) to transform the standard format to t
 
 In particular, we preprocess many open-source preference datasets into the standard format and upload them to the hugginface hub. You can find them [HERE](https://huggingface.co/collections/RLHFlow/standard-format-preference-dataset-662eec0252e194d5d40c252a). We have also searched and founda that some of the following mixture of preference dataset useful.
 
-- [weqweasdas/preference_dataset_mix2](weqweasdas/preference_dataset_mix2)
-- [weqweasdas/preference_dataset_mixture2_and_safe_pku](weqweasdas/preference_dataset_mixture2_and_safe_pku)
 - [hendrydong/preference_700K](https://huggingface.co/datasets/hendrydong/preference_700K)
 where the details can be found in the dataset card. 
 
@@ -77,7 +75,7 @@ You can also modify the learning rate, batch size, output_path.. with either com
 If you encounter out-of-memory issue. Running the code with Gemma-2b-it with deepspeed stage 3 and gradient checkpoint (set in the config).
 
 ```shell
-CUDA_VISIBLE_DEVICES="0,1,2,3" torchrun --nproc_per_node 4 --master_port 20001 -m axolotl.cli.train gemma-2b-it.yml --deepspeed deepspeed_configs/deepspeed_3.json
+CUDA_VISIBLE_DEVICES="0,1,2,3" torchrun --nproc_per_node 4 --master_port 20001 -m axolotl.cli.train gemma-2b-it.yaml --deepspeed ../deepspeed_configs/deepspeed_3.json
 ```
 
 **REMARK: note that with deepspeed stage 3, the final mode saving does not work normally. We set the store strategy as epoch so we can store a normal model just before we finish the training for one epoch. If you modify the store stragety, you should set the save_every_steps as the total number of training steps - 1 so that the trainer will save a model for you just before finishing the training.**
@@ -110,7 +108,7 @@ temperature = 1.0
 model.eval()
 response_chosen = "BBBB"
 response_rejected = "CCCC"
-
+# we can handle multi-turn conversation history
 instruction = [{"role": "user", "content": ...},
 {"role": "assistant", "content": ...},
 {"role": "user", "content": ...},

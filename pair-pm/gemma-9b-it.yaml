@@ -1,4 +1,4 @@
-base_model: ./models/llama3_it_with_padding_token
+base_model: google/gemma-2-9b-it
 model_type: AutoModelForCausalLM
 tokenizer_type: AutoTokenizer
 
@@ -7,19 +7,20 @@ load_in_4bit: false
 strict: false
 
 datasets:
-  - path: RLHFlow/pair_preference_model_dataset
-    conversation: llama-3
+  - path: RLHFlow/preference_data_v2_80K_wsafety
+    conversation: gemma
     type: sharegpt.load_ultrachat
     split: "train"
     train_on_split: "train"
 
-warmup_steps: 40
+warmup_steps: 100
 val_set_size: 0.0
-output_dir: ./pm_models/llama3-8b-it_bs128_lr5e-6
+output_dir: ./pm_models/gemma-9b-it_bs128_lr1e-5
 #wandb_project: preference-models
 #wandb_entity: domain-generalization
 wandb_watch:
-wandb_name: "llama-8b-it_data-preference_mix3_bs128_lr5e-6"
+wandb_name: "gemma-9b-it_bs128_lr1e-5"
+#_response_only
 wandb_log_model:
 
 train_on_inputs: false
@@ -31,18 +32,13 @@ dataset_prepared_path: ~/data/preference-models/last_run_prepared
 
 dataset_processes: 48
 #torch_compile: true
-sequence_len: 3072
+sequence_len: 4096
 sample_packing: true
 pad_to_sequence_len: true
 
 trust_remote_code: True
 adapter:
 lora_model_dir:
-#lora_r: 32
-#lora_alpha: 16
-#lora_dropout: 0.05
-#lora_target_linear: true
-#lora_fan_in_fan_out:
 
 
 
@@ -53,12 +49,9 @@ gradient_checkpointing: True
 gradient_accumulation_steps: 16
 micro_batch_size: 1
 num_epochs: 1
-#max_steps: 10
-optimizer: adamw_torch_fused
-#optimizer: paged_adamw_32bit
-#lr_scheduler: constant_with_warmup
+optimizer: paged_adamw_32bit
 lr_scheduler: cosine
-learning_rate: 5.0e-6
+learning_rate: 1.e-5
 
 weight_decay: 0.0
 max_grad_norm: 1.0
@@ -71,7 +64,7 @@ tf32: true
 
 early_stopping_patience:
 local_rank:
-logging_steps: 2
+logging_steps: 1
 xformers_attention:
 flash_attention: true
 
@@ -82,7 +75,6 @@ eval_table_max_new_tokens:
 #save_steps: 100
 save_strategy: "epoch"
 save_total_limit: 1
-#save_safetensors: false
 debug:
 
 

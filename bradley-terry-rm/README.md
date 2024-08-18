@@ -12,13 +12,18 @@ conda activate rm_dev
 git clone https://github.com/huggingface/alignment-handbook.git
 cd ./alignment-handbook/
 git checkout d17fd7cd3b71c6a7bf7af34d8dc73135bb7ea8e9
+
 # The test cuda version is 12.1, 12.2. You may need to update the torch version based on your cuda version...
 pip3 install torch==2.1.2 torchvision torchaudio
 python -m pip install .
-pip install flash-attn
-pip install accelerate==0.27.2
-## You may need to modify the version of transformers for the model you want to use...
-pip install transformers==4.39.0
+
+pip install flash-attn==2.6.3
+
+pip install accelerate==0.33.0 # for gemma2 and llama3.1
+pip install deepspeed==0.12.2
+pip install transformers==4.43.4
+pip install numpy==1.26.4 # Note that the numpy version should be `numpy<2.0`.  `Numpy 2.0` will encounter unexpected issues!!!
+
 
 git clone https://github.com/WeiXiongUST/RLHF-Reward-Modeling.git
 ```
@@ -52,33 +57,35 @@ The dataset should be preprocessed as the standard format, where each of the sam
 ]
 ```
 
-We preprocess many open-source preference datasets into the standard format and upload them to the hugginface hub. You can find them [HERE](https://huggingface.co/collections/RLHFlow/standard-format-preference-dataset-662eec0252e194d5d40c252a). We have also searched and founda that some of the following mixture of preference dataset useful.
+We preprocess many open-source preference datasets into the standard format and upload them to the huggingface hub. You can find them [HERE](https://huggingface.co/collections/RLHFlow/standard-format-preference-dataset-662eec0252e194d5d40c252a). We have also searched and found that some of the following mixture of preference dataset useful.
 
-- [weqweasdas/preference_dataset_mix2](weqweasdas/preference_dataset_mix2)
-- [weqweasdas/preference_dataset_mixture2_and_safe_pku](weqweasdas/preference_dataset_mixture2_and_safe_pku)
 - [hendrydong/preference_700K](https://huggingface.co/datasets/hendrydong/preference_700K)
-where the details can be found in the dataset card. 
+- [RLHFlow/pair_data_v2_80K_wsafety](https://huggingface.co/datasets/RLHFlow/pair_data_v2_80K_wsafety)
+
+For the RLHFLow, the first dataset is used. In the second dataset, we also add the data from the lmsys kaggle competition.
 
 ## Running the Code
 
 Running the code with Gemma-2b-it.
 
 ```shell
-accelerate launch ./bradley-terry-rm/gemma_rm.py --model_name google/gemma-2b-it --max_length 4096 --train_set_path weqweasdas/preference_dataset_mix2
+cd ..
+accelerate launch ./bradley-terry-rm/gemma_2B_rm.py --model_name google/gemma-2b-it --max_length 4096 --train_set_path hendrydong/preference_700K
 ```
 
-You can also modify the learning rate, batch size, output_path.. with either command or modify the ScriptArguments in the rm_gemma.py
+You can also modify the learning rate, batch size, output_path.. with either command or modify the ScriptArguments in the gemma_1_2B_rm.py
 
 If you encounter out-of-memory issue. Running the code with Gemma-2b-it with deepspeed stage 3. If OOM still exists, use a smaller max length and per_device_batch_size.
 
 ```shell
-accelerate launch ./bradley-terry-rm/gemma_rm.py --model_name google/gemma-2b-it --max_length 4096 --train_set_path weqweasdas/preference_dataset_mix2 --deepspeed ./deepspeed_configs/deepspeed_3.json
+cd ..
+accelerate launch ./bradley-terry-rm/gemma_2B_rm.py --model_name google/gemma-2b-it --max_length 4096 --train_set_path hendrydong/preference_700K --deepspeed ./deepspeed_configs/deepspeed_3.json
 ```
 
 **REMARK: note that with deepspeed stage 3, the final mode saving does not work normally. You should set the save_every_steps as the total number of training steps - 1 so that the trainer will save a model for you just before finishing the training.**
 
 
-For the models without an official padding token (like Mistral and LLaMA3), you can run the mistral script and other parameters can be set in a similar way.
+For the models without an official padding token (like Mistral and LLaMA3), you can run the mistral and llama script and other parameters can be set in a similar way.
 
 ## Service the RM
 
