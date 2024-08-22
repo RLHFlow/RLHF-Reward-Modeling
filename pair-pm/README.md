@@ -13,14 +13,17 @@ Before starting, please make sure your linux machine has [nvidia-cuda-toolkit](h
 conda create -n pm_dev python=3.10.9
 conda activate pm_dev
 
-# The test cuda version is 12.1, 12.2. You may need to update the torch version based on your cuda version...
-pip3 install torch==2.1.2 torchvision torchaudio
-pip install flash-attn
-
 ## Get axolotl for general model
 git clone https://github.com/OpenAccess-AI-Collective/axolotl
 cd axolotl
+git checkout 55cc214c767741e83ee7b346e5e13e6c03b7b9fa
 pip install -e .
+
+# The test cuda version is 12.1, 12.2. You may need to update the torch version based on your cuda version...
+# you may encounter underfined symbol error related to cuda and flash-attn and 2.1.2 can solve it ...
+pip3 install torch==2.1.2 torchvision torchaudio
+pip install flash-attn
+
 
 ## Get FastChat
 git clone https://github.com/lm-sys/FastChat.git
