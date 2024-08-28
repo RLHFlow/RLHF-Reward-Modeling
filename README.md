@@ -16,7 +16,9 @@ Our models and codes have contributed to many academic research projects, e.g.,
 12. Junsoo Park, et al., "OffsetBias: Leveraging Debiased Data for Tuning Evaluators"
 13. Meng Yu, et al., "SimPO: Simple Preference Optimization with a Reference-Free Reward"
 14. Song Yifan, et al., "The Good, The Bad, and The Greedy: Evaluation of LLMs Should Not Ignore Non-Determinism"
-
+15. Wenxuan Zhou et al., "WPO: Enhancing RLHF with Weighted Preference Optimization"
+16. Han Xia et al., "Inverse-Q*: Token Level Reinforcement Learning for Aligning Large Language Models Without Preference Data"
+17. Wang Haoyu et al., "Probing the Safety Response Boundary of Large Language Models via Unsafe Decoding Path Generation"
 
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
