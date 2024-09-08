@@ -60,10 +60,17 @@ The dataset should be preprocessed as a special format. Here is an example.
 
 We provide a script (process_pair_data.py) to transform the standard format to this special format.
 
-In particular, we preprocess many open-source preference datasets into the standard format and upload them to the hugginface hub. You can find them [HERE](https://huggingface.co/collections/RLHFlow/standard-format-preference-dataset-662eec0252e194d5d40c252a). We have also searched and founda that some of the following mixture of preference dataset useful.
+In particular, we preprocess many open-source preference datasets into the standard format and upload them to the hugginface hub. You can find them [HERE](https://huggingface.co/collections/RLHFlow/standard-format-preference-dataset-662eec0252e194d5d40c252a). We have also searched and found that some of the following mixture of preference dataset useful.
 
 - [hendrydong/preference_700K](https://huggingface.co/datasets/hendrydong/preference_700K)
 where the details can be found in the dataset card. 
+
+## Semi-Supervised Reward Modeling (SSRM)
+Semi-Supervised Reward Modeling (SSRM) is an approach that leverages both labeled and unlabeled preference data to improve reward modeling. Our research shows that incorporating pseudo-labeled preference data can achieve performance comparable to using exclusively labeled data of equivalent volumes.
+
+SSRM involves three steps: i) **Pseudo-label**: assign pseudo-labels to the unlabeled examples based on their predicted preference, ii) **Confidence thresholding**: employ confidence threshold to retain examples where model is confident at, iii) **Supervised fine-tuning**: finetune on the filtered subset of data. The processes of pseudo-labeleing and the confidence thrsholding are implemented in `pseudo_label.py` and `conf_threshold.py` respectively. Once the SSRM process is complete, you can use the resulting pseudo-labeled dataset in the same way as other labeled datasets.
+
+By employing SSRM, we can harness the extensive availability of unlabeled preference data, thereby expanding the capabilities and applicability of reward models.
 
 ## Running the Code
 
