@@ -19,20 +19,24 @@ Our models and codes have contributed to many academic research projects, e.g.,
 15. Wenxuan Zhou et al., "WPO: Enhancing RLHF with Weighted Preference Optimization"
 16. Han Xia et al., "Inverse-Q*: Token Level Reinforcement Learning for Aligning Large Language Models Without Preference Data"
 17. Wang Haoyu et al., "Probing the Safety Response Boundary of Large Language Models via Unsafe Decoding Path Generation"
+18. He Yifei et al., "Semi-Supervised Reward Modeling via Iterative Self-Training"
 
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-🚀 **Our [ArmoRM](https://huggingface.co/RLHFlow/ArmoRM-Llama3-8B-v0.1) is the Rank #1 8B model on RewardBench!** 
+🚀 **[Sep 2024]** Code for [Semi-Supervised Reward Modeling via Iterative Self-Training](https://arxiv.org/abs/2409.06903) is released under the `pair-pm/` folder
 
-🚀 **The top-3 open-source 8B reward models on RewardBench ([ArmoRM](https://huggingface.co/RLHFlow/ArmoRM-Llama3-8B-v0.1), [Pair Pref. Model](https://huggingface.co/RLHFlow/pair-preference-model-LLaMA3-8B), [BT RM](https://huggingface.co/sfairXC/FsfairX-LLaMA3-RM-v0.1)) are all trained with this repo!**
+🚀 **[Jun 2024] Our [ArmoRM](https://huggingface.co/RLHFlow/ArmoRM-Llama3-8B-v0.1) is the Rank #1 8B model on RewardBench!** 
 
-🚀 **The [pairwise preference model](https://huggingface.co/RLHFlow/pair-preference-model-LLaMA3-8B) training code is available (`pair-pm/`)!**
+🚀 **[May 2024] The top-3 open-source 8B reward models on RewardBench ([ArmoRM](https://huggingface.co/RLHFlow/ArmoRM-Llama3-8B-v0.1), [Pair Pref. Model](https://huggingface.co/RLHFlow/pair-preference-model-LLaMA3-8B), [BT RM](https://huggingface.co/sfairXC/FsfairX-LLaMA3-RM-v0.1)) are all trained with this repo!**
+
+🚀 **[May 2024] The [pairwise preference model](https://huggingface.co/RLHFlow/pair-preference-model-LLaMA3-8B) training code is available (`pair-pm/`)!**
 
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
 + **Tech Report**
   + [RLHF Workflow: From Reward Modeling to Online RLHF](https://arxiv.org/abs/2405.07863)
   + [[ArmoRM] Interpretable Preferences via Multi-Objective Reward Modeling and Mixture-of-Experts](https://arxiv.org/abs/2406.12845)
+  + [Semi-Supervised Reward Modeling via Iterative Self-Training](https://arxiv.org/abs/2409.06903)
 + **Models**:
   + Absolute-Rating Multi-Objective Reward Model (ArmoRM): [ArmoRM-Llama3-8B-v0.1](https://huggingface.co/RLHFlow/ArmoRM-Llama3-8B-v0.1)
   + Pairwise Preference Reward Model: [pair-preference-model-LLaMA3-8B](https://huggingface.co/RLHFlow/pair-preference-model-LLaMA3-8B) 
