@@ -66,7 +66,7 @@ In particular, we preprocess many open-source preference datasets into the stand
 where the details can be found in the dataset card. 
 
 ## Semi-Supervised Reward Modeling (SSRM)
-Semi-Supervised Reward Modeling (SSRM) is an approach that leverages both labeled and unlabeled preference data to improve reward modeling. Our research shows that incorporating pseudo-labeled preference data can achieve performance comparable to using exclusively labeled data of equivalent volumes.
+[Semi-Supervised Reward Modeling (SSRM)](https://arxiv.org/abs/2409.06903) is an approach that leverages both labeled and unlabeled preference data to improve reward modeling. Our research shows that incorporating pseudo-labeled preference data can achieve performance comparable to using exclusively labeled data of equivalent volumes.
 
 SSRM involves three steps: i) **Pseudo-label**: assign pseudo-labels to the unlabeled examples based on their predicted preference, ii) **Confidence thresholding**: employ confidence threshold to retain examples where model is confident at, iii) **Supervised fine-tuning**: finetune on the filtered subset of data. The processes of pseudo-labeleing and the confidence thrsholding are implemented in `pseudo_label.py` and `conf_threshold.py` respectively. Once the SSRM process is complete, you can use the resulting pseudo-labeled dataset in the same way as other labeled datasets.
 
@@ -151,4 +151,19 @@ for chosen_position in [0, 1]:
 avg_prob_chosen = np.mean(probs_chosen)
 correct = 0.5 if avg_prob_chosen == 0.5 else float(avg_prob_chosen > 0.5)
 print(correct)
+```
+
+## Citation
+
+If you find our semi-supervised reward modeling approach useful, please consider citing:
+```
+@misc{he2024semisupervisedrewardmodelingiterative,
+      title={Semi-Supervised Reward Modeling via Iterative Self-Training}, 
+      author={Yifei He and Haoxiang Wang and Ziyan Jiang and Alexandros Papangelis and Han Zhao},
+      year={2024},
+      eprint={2409.06903},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2409.06903}, 
+}
 ```
