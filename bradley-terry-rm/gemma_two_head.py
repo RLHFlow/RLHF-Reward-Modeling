@@ -108,6 +108,10 @@ class ScriptArguments:
         default=1.0,
         metadata={"help": "The weight of the length correlation loss"},
     )
+    ortho_reg: Optional[float] = field(
+        default=1.0,
+        metadata={"help": "The weight of the orthogonal regularization"},
+    )
 
 parser = HfArgumentParser(ScriptArguments)
 script_args = parser.parse_args_into_dataclasses()[0]
@@ -121,6 +125,7 @@ tokenizer = AutoTokenizer.from_pretrained(tokenizer_name, use_auth_token=True)
 tokenizer.truncation_side = "left"
 tokenizer.model_max_length = script_args.max_length
 correlation_with_length = script_args.correlation_with_length
+ortho_reg = script_args.ortho_reg
 # Get the dataset
 train_path = script_args.train_set_path
 eval_path = script_args.eval_set_path
@@ -259,8 +264,10 @@ class RewardDataCollatorWithPadding:
 # Define the trainer
 def compute_metrics(eval_pred):
     result = {}
-    pos_predictions_scores = eval_pred.predictions[0]
-    neg_predictions_scores = eval_pred.predictions[1]
+    predictions = eval_pred.predictions
+    # Extract scores from the second head (index 1)
+    pos_predictions_scores = predictions[0][:, 1]
+    neg_predictions_scores = predictions[1][:, 1]
     # We assume that the first sample is preferred by default in groundtruth
     result['accuracy'] = np.sum(
         pos_predictions_scores > neg_predictions_scores) / len(pos_predictions_scores)
@@ -268,13 +275,13 @@ def compute_metrics(eval_pred):
 
 
 class RewardTrainer(Trainer):
-    def proj_with_normalized_weight(self, weight, x):
+    def proj_with_normalized_weight(self, weight):
         w = weight - torch.mean(weight, dim=-1, keepdim=True)
         head_norms = torch.norm(w, dim=-1, keepdim=True)
         head_norms = torch.maximum(head_norms, torch.full_like(head_norms, 1e-8))
-        w = w / head_norms
+        normalized_w = w / head_norms
         # Return the weight for orthogonal regularizations
-        return w, F.linear(x, w)
+        return normalized_w
 
     def compute_loss(self, model, inputs, return_outputs=False):
         rewards = model(
@@ -319,17 +326,17 @@ class RewardTrainer(Trainer):
         # implement the orthogonal loss here
         linear_layer = model.module.score
         weight = linear_layer.weight
-        w_normalized, _ = self.proj_with_normalized_weight(weight, rewards)
+        w_normalized = self.proj_with_normalized_weight(weight)
 
         # Add orthogonal regularization on the projection layer weights
         prod = w_normalized @ w_normalized.T
-        mean_corr = torch.abs(torch.triu(prod, diagonal=1)).sum() / (self.rm_num_heads * (self.rm_num_heads-1) / 2)
-        ortho_loss = self.rm_ortho_reg * mean_corr
-        loss += ortho_loss
+        mean_corr = torch.abs(torch.triu(prod, diagonal=1)).sum()
+        ortho_loss = ortho_reg * mean_corr
+        
         # Combine losses
-        total_loss = ranking_loss + correlation_with_length * (length_loss1 + length_loss2)
-        if torch.distributed.get_rank() == 0:
-            breakpoint()
+        total_loss = ranking_loss + correlation_with_length * (length_loss1 + length_loss2) + ortho_loss
+        # if torch.distributed.get_rank() == 0:
+        #     breakpoint()
         
         if return_outputs:
             return total_loss, {
