@@ -20,6 +20,12 @@ Our models and codes have contributed to many academic research projects, e.g.,
 16. Han Xia et al., "Inverse-Q*: Token Level Reinforcement Learning for Aligning Large Language Models Without Preference Data"
 17. Wang Haoyu et al., "Probing the Safety Response Boundary of Large Language Models via Unsafe Decoding Path Generation"
 18. He Yifei et al., "Semi-Supervised Reward Modeling via Iterative Self-Training"
+19. Tao leitian et al., "Your Weak LLM is Secretly a Strong Teacher for Alignment"
+20. Guijin Son et al., "LLM-as-a-Judge & Reward Model: What They Can and Cannot Do"
+21. Nicolai Dorka et al., "Quantile Regression for Distributional Reward Models in RLHF"
+22. Zhaolin Gao et al., "Rebel: Reinforcement learning via regressing relative rewards"
+
+
 
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
