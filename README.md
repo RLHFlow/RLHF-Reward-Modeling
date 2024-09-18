@@ -23,6 +23,8 @@ Our models and codes have contributed to many academic research projects, e.g.,
 
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
+🚀 **[Sep 2024]** ArmoRM training code is released under the `armo-rm/` folder!
+
 🚀 **[Sep 2024]** Code for [Semi-Supervised Reward Modeling via Iterative Self-Training](https://arxiv.org/abs/2409.06903) is released under the `pair-pm/` folder
 
 🚀 **[Jun 2024] Our [ArmoRM](https://huggingface.co/RLHFlow/ArmoRM-Llama3-8B-v0.1) is the Rank #1 8B model on RewardBench!** 
