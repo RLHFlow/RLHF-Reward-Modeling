@@ -1,32 +1,16 @@
 # RLHF-Reward-Modeling
 
-Our models and codes have contributed to many academic research projects, e.g.,
+## Structure 
 
-1. Xu Zhangchen, et al. "Magpie: Alignment Data Synthesis from Scratch by Prompting Aligned LLMs with Nothing."
-2. Chen, Lichang, et al. "OPTune: Efficient Online Preference Tuning."
-3. Xie, Tengyang, et al. "Exploratory Preference Optimization: Harnessing Implicit Q*-Approximation for Sample-Efficient RLHF." arXiv preprint arXiv:2405.21046 (2024).
-4. Zhong, Han, et al. "Dpo meets ppo: Reinforced token optimization for rlhf." arXiv preprint arXiv:2404.18922 (2024).
-5. Zheng, Chujie, et al. "Weak-to-strong extrapolation expedites alignment." arXiv preprint arXiv:2404.16792 (2024).
-6. Ye, Chenlu, et al. "A theoretical analysis of nash learning from human feedback under general kl-regularized preference." arXiv preprint arXiv:2402.07314 (2024).
-7. Chen, Ruijun, et al. "Self-Evolution Fine-Tuning for Policy Optimization"
-8. Li Bolian, et al., Cascade Reward Sampling for Efficient Decoding-Time Alignment
-9. Zhang, Yuheng, et al. "Iterative Nash Policy Optimization: Aligning LLMs with General Preferences via No-Regret Learning"
-10. Lin Tzu-Han, et al., "DogeRM: Equipping Reward Models with Domain Knowledge through Model Merging",
-11. Yang Rui, et al., "Regularizing Hidden States Enables Learning Generalizable Reward Model for LLMs"
-12. Junsoo Park, et al., "OffsetBias: Leveraging Debiased Data for Tuning Evaluators"
-13. Meng Yu, et al., "SimPO: Simple Preference Optimization with a Reference-Free Reward"
-14. Song Yifan, et al., "The Good, The Bad, and The Greedy: Evaluation of LLMs Should Not Ignore Non-Determinism"
-15. Wenxuan Zhou et al., "WPO: Enhancing RLHF with Weighted Preference Optimization"
-16. Han Xia et al., "Inverse-Q*: Token Level Reinforcement Learning for Aligning Large Language Models Without Preference Data"
-17. Wang Haoyu et al., "Probing the Safety Response Boundary of Large Language Models via Unsafe Decoding Path Generation"
-18. He Yifei et al., "Semi-Supervised Reward Modeling via Iterative Self-Training"
-19. Tao leitian et al., "Your Weak LLM is Secretly a Strong Teacher for Alignment"
-20. Guijin Son et al., "LLM-as-a-Judge & Reward Model: What They Can and Cannot Do"
-21. Nicolai Dorka et al., "Quantile Regression for Distributional Reward Models in RLHF"
-22. Zhaolin Gao et al., "Rebel: Reinforcement learning via regressing relative rewards"
+The initial release of tis project focus on the Bradley-Terry reward modeling and pairwise preference model. Since then, we have included more advanced techniques to construct preference model. The structure of this project is 
+
+- [`bradley-terry-rm`](./bradley-terry-rm/) to train the classic Bradley-Terry reward model;
+- [`pair-pm`](./pair-pm/) to train the pairwise preference model, which takes a prompt and **two responses** as the input and directly predicts the probability of the first response is being preferred;
+	- [`SSRM`](./pair-pm/SRRM/): the code of the paper [Semi-Supervised Reward Modeling via Iterative Self-Training](https://arxiv.org/abs/2409.06903)
+- [`armo-rm`](./armo-rm/) to train the ArmoRM, which starts with a multi-objective reward model and the reward vector is aggregated by a mixture-of-expert approach in a context-dependent way. See our technical report [[ArmoRM] Interpretable Preferences via Multi-Objective Reward Modeling and Mixture-of-Experts](https://arxiv.org/abs/2406.12845) for details.
 
 
-
+## News
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
 🚀 **[Sep 2024]** ArmoRM training code is released under the `armo-rm/` folder!
@@ -99,11 +83,10 @@ The dataset should be preprocessed as the standard format, where each of the sam
 ]
 ```
 
-We preprocess many open-source preference datasets into the standard format and upload them to the hugginface hub. You can find them [HERE](https://huggingface.co/collections/RLHFlow/standard-format-preference-dataset-662eec0252e194d5d40c252a). We have also searched and founda that some of the following mixture of preference dataset useful.
+We preprocess many open-source preference datasets into the standard format and upload them to the hugginface hub. You can find them [HERE](https://huggingface.co/collections/RLHFlow/standard-format-preference-dataset-662eec0252e194d5d40c252a). We have also searched and found that some of the following mixture of preference dataset useful.
 
-- [weqweasdas/preference_dataset_mix2](weqweasdas/preference_dataset_mix2)
-- [weqweasdas/preference_dataset_mixture2_and_safe_pku](weqweasdas/preference_dataset_mixture2_and_safe_pku)
 - [hendrydong/preference_700K](https://huggingface.co/datasets/hendrydong/preference_700K)
+- [RLHFlow/UltraFeedback-preference-standard](https://huggingface.co/datasets/RLHFlow/UltraFeedback-preference-standard) 
 where the details can be found in the dataset card. 
 
 ## Evaluation Results
@@ -122,6 +105,33 @@ CUDA_VISIBLE_DEVICES=1 python ./useful_code/eval_reward_bench_bt.py --reward_nam
 - [x]  Preference model
 - [x]  Multi-Objective Reward Model
 - [ ]  LLM-as-a-judge
+
+Our models and codes have contributed to many academic research projects, e.g.,
+
+1. Xu Zhangchen, et al. "Magpie: Alignment Data Synthesis from Scratch by Prompting Aligned LLMs with Nothing."
+2. Chen, Lichang, et al. "OPTune: Efficient Online Preference Tuning."
+3. Xie, Tengyang, et al. "Exploratory Preference Optimization: Harnessing Implicit Q*-Approximation for Sample-Efficient RLHF." arXiv preprint arXiv:2405.21046 (2024).
+4. Zhong, Han, et al. "Dpo meets ppo: Reinforced token optimization for rlhf." arXiv preprint arXiv:2404.18922 (2024).
+5. Zheng, Chujie, et al. "Weak-to-strong extrapolation expedites alignment." arXiv preprint arXiv:2404.16792 (2024).
+6. Ye, Chenlu, et al. "A theoretical analysis of nash learning from human feedback under general kl-regularized preference." arXiv preprint arXiv:2402.07314 (2024).
+7. Chen, Ruijun, et al. "Self-Evolution Fine-Tuning for Policy Optimization"
+8. Li Bolian, et al., Cascade Reward Sampling for Efficient Decoding-Time Alignment
+9. Zhang, Yuheng, et al. "Iterative Nash Policy Optimization: Aligning LLMs with General Preferences via No-Regret Learning"
+10. Lin Tzu-Han, et al., "DogeRM: Equipping Reward Models with Domain Knowledge through Model Merging",
+11. Yang Rui, et al., "Regularizing Hidden States Enables Learning Generalizable Reward Model for LLMs"
+12. Junsoo Park, et al., "OffsetBias: Leveraging Debiased Data for Tuning Evaluators"
+13. Meng Yu, et al., "SimPO: Simple Preference Optimization with a Reference-Free Reward"
+14. Song Yifan, et al., "The Good, The Bad, and The Greedy: Evaluation of LLMs Should Not Ignore Non-Determinism"
+15. Wenxuan Zhou et al., "WPO: Enhancing RLHF with Weighted Preference Optimization"
+16. Han Xia et al., "Inverse-Q*: Token Level Reinforcement Learning for Aligning Large Language Models Without Preference Data"
+17. Wang Haoyu et al., "Probing the Safety Response Boundary of Large Language Models via Unsafe Decoding Path Generation"
+18. He Yifei et al., "Semi-Supervised Reward Modeling via Iterative Self-Training"
+19. Tao leitian et al., "Your Weak LLM is Secretly a Strong Teacher for Alignment"
+20. Guijin Son et al., "LLM-as-a-Judge & Reward Model: What They Can and Cannot Do"
+21. Nicolai Dorka et al., "Quantile Regression for Distributional Reward Models in RLHF"
+22. Zhaolin Gao et al., "Rebel: Reinforcement learning via regressing relative rewards"
+
+
 
 ## Citation
 
