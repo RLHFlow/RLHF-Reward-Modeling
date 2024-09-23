@@ -145,10 +145,11 @@ The repo was part of the iterative rejection sampling fine-tuning and iterative 
   year={2024}
 }
 
-@article{ArmoRM,
+@inproceedings{ArmoRM,
       title={Interpretable Preferences via Multi-Objective Reward Modeling and Mixture-of-Experts}, 
       author={Haoxiang Wang and Wei Xiong and Tengyang Xie and Han Zhao and Tong Zhang},
-      journal={arXiv preprint arXiv:2406.12845},
+      booktitle={The 2024 Conference on Empirical Methods in Natural Language Processing},
+      year={2024}
 }
 
 
