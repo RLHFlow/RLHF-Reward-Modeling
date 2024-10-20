@@ -53,21 +53,19 @@ if __name__ == "__main__":
     parser.add_argument(
         "--data_path",
         type=str,
-        default="RLHFlow/ArmoRM-Multi-Objective-Data-v0.1",
+        default="../evals/datasets/commonsenseqa/train_rand_split.jsonl",
         help="Path to the dataset (HuggingFace path or local folder)",
     )
     parser.add_argument(
         "--output_path",
         type=str,
-        default="RLHFlow/ArmoRM-Multi-Objective-Data-v0.1",
+        default="../evals/datasets/commonsenseqa/train_rand_split_w_rewards.jsonl",
         help="Path to the dataset (HuggingFace path or local folder)",
     )
     args = parser.parse_args()  # Parse the provided command-line arguments
 
-    # Load Dataset
-    #data_path = "../evals/datasets/commonsenseqa/train_rand_split.jsonl"
     data_w_rewards = compute_dataset_rewards(args.data_path, args.model_path)
-    #with open("../evals/datasets/commonsenseqa/train_rand_split_w_rewards.jsonl", "w") as outf:
+
     with open(args.output_path, "w") as outf:
         for x in data_w_rewards:
             json.dump(x, outf)
