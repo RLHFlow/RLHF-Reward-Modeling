@@ -1,7 +1,7 @@
 from typing import Dict, List
 import torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
-from generate_pipeline import ArmoRMPipeline
+from pipeline import ArmoRMPipeline
 
 
 def main():

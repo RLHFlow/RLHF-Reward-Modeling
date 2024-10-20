@@ -36,7 +36,7 @@ def compute_dataset_rewards(data_path, model_path):
         data_w_rewards.append(sample_w_rewards)
     
     print("Number of samples: ", len(data))
-    print(f"accuracy: {correct_cnt / len(data)})")
+    print(f"accuracy: {correct_cnt / len(data):.3f})")
     return data_w_rewards
 
 
