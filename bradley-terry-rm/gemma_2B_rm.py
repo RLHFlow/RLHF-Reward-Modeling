@@ -47,7 +47,7 @@ class ScriptArguments:
             "help": "Path to deepspeed config if using deepspeed. You may need this if the model that you want to train doesn't fit on a single GPU."
         },
     )
-    per_device_train_batch_size: Optional[int] = field(default=4)
+    per_device_train_batch_size: Optional[int] = field(default=16)
     per_device_eval_batch_size: Optional[int] = field(default=1)
     gradient_accumulation_steps: Optional[int] = field(default=32)
     learning_rate: Optional[float] = field(default=1e-5)
@@ -291,9 +291,6 @@ class RewardTrainer(Trainer):
         all_length_tensor = torch.cat(all_length_list, dim=0).to(rewards.device)
         all_rewards_tensor = torch.cat(all_rewards_list, dim=0).to(rewards.device)
 
-        if torch.distributed.get_rank() == 0:
-            breakpoint()
-
         bsz = rewards.size(0)
         jidx = torch.arange(0, bsz, 2)
         kidx = jidx + 1
@@ -301,19 +298,26 @@ class RewardTrainer(Trainer):
         rewards_k = rewards[kidx] # rejected response rewards
         ranking_loss = -nn.functional.logsigmoid(rewards_j.sum() - rewards_k.sum()).mean()
         
-        # Length correlation loss
-        length_corr_matrix = torch.stack((all_length_tensor, all_rewards_tensor.sum(dim=1)))
-        length_corr = torch.corrcoef(length_corr_matrix.to(dtype=torch.float32))[0, 1]
-        length_loss = torch.abs(length_corr)
+        # Length correlation loss for head 1 (encouraging correlation)
+        length_corr_matrix1 = torch.stack((all_length_tensor, all_rewards_tensor[:, 0]))
+        length_corr1 = torch.corrcoef(length_corr_matrix1.to(dtype=torch.float32))[0, 1]
+        length_loss1 = 1 - length_corr1  # Encourage correlation
+
+        # Length correlation loss for head 2 (discouraging correlation)
+        length_corr_matrix2 = torch.stack((all_length_tensor, all_rewards_tensor[:, 1]))
+        length_corr2 = torch.corrcoef(length_corr_matrix2.to(dtype=torch.float32))[0, 1]
+        length_loss2 = torch.abs(length_corr2)  # Discourage correlation
 
         # Combine losses
-        total_loss = ranking_loss + \
-                     correlation_with_length * length_loss
+        total_loss = ranking_loss + correlation_with_length * (length_loss1 + length_loss2)
+        if torch.distributed.get_rank() == 0:
+            breakpoint()
         
         if return_outputs:
             return total_loss, {
                 "loss": total_loss,
-                "length_loss": length_loss,
+                "length_loss1": length_loss1,
+                "length_loss2": length_loss2,
                 "ranking_corr_loss": ranking_loss,
                 "rewards_j": rewards_j,
                 "rewards_k": rewards_k
