@@ -166,3 +166,9 @@ cython_debug/
 wandb/
 *.sh
 alignment-handbook/
+gemma_9b_700K/
+gemma_9b_700K_v2/
+bt_models/gemma2b_rm/
+transfer_dataset.py
+transfer_models.py
+upload.py
