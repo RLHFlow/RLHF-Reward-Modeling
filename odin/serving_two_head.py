@@ -1,7 +1,7 @@
 from transformers import AutoTokenizer, pipeline, AutoModel
 from huggingface_hub import delete_repo
 import torch
-model_path = "/home/lichangc_google_com/RLHF-Reward-Modeling/gemma_9b_700K/last_checkpoint"
+model_path = "Lichang-Chen/gemma_9b_odin_v2"
 # rm_tokenizer = AutoTokenizer.from_pretrained(model_path)
 # model = AutoModel.from_pretrained(model_path, torch_dtype=torch.bfloat16)
 #upload the model to the huggingface hub
