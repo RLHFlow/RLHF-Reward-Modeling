@@ -153,6 +153,9 @@ The `--model_type` should be either Mistral or Deepseek, depending on the traini
 
 You may replace `prm_evaluate.py` with `orm_evaluate.py` if you want to evaluate the Outcome Reward Model.
 
+# Experiment Setup
+
+# Experiment Results
 
 ```bibtex
 @misc{xiong2024rlhflowmath,
