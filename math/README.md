@@ -75,7 +75,7 @@ We provide test sets on GSM8K and MATH500 for best-of-N evaluation
 - [RLHFlow/Deepseek-GSM8K-Test](https://huggingface.co/datasets/RLHFlow/Deepseek-GSM8K-Test)
 - [RLHFlow/Deepseek-MATH500-Test](https://huggingface.co/datasets/RLHFlow/Deepseek-MATH500-Test)
 
-**A sample of the dataset:**
+### A sample of the dataset:
 ```
 {
       "prompt": "Convert the point $(0,3)$ in rectangular coordinates to polar coordinates."
@@ -92,7 +92,7 @@ The length of `answers` is the same as the length of `labels`.
 
 each position of `labels` indicates whether that position of `answers` is correct (1 means correct and 0 means incorrect).
 
-**Running the evaluation code:**
+### Running the evaluation code:
 ```
 accelerate launch prm_evaluate.py --reward_name_or_path RLHFlow/Llama3.1-8B-PRM-Mistral-Data \
       --dataset RLHFlow/Mistral-MATH500-Test \
