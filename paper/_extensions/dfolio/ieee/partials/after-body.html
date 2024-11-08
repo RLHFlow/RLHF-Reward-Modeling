@@ -1,0 +1,68 @@
+<div id="quarto-accordion" class="accordion d-none d-md-block" role="tablist">
+  $if(by-author)$
+  <div class="accordion-item container" id="">
+    <div class="accordion-header d-flex justify-content-between" id="heading-author" role="tab">
+      <button id="authors" class="accordion-button p-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-authors" aria-expanded="false" aria-controls="collapse-authors">Authors</button>
+    </div>
+    <div id="collapse-authors" class="accordion-body collapse" aria-labelledby="heading-authors" data-bs-parent="#quarto-accordion" role="tabpanel">
+    $for(by-author)$
+      <div class="accordion-authors container">
+      <div class="author-card"><div class="grid gap-0">
+        $if(it.metadata.photo)$
+        <div class="author-photo g-col-3 pe-3">
+          <img src="$it.metadata.photo$" alt="Author image of $it.name.literal$">
+        </div>
+        <div class="g-col-9">
+          <div>$author.html()$</div>
+          <div>$for(by-author.affiliations)$$affiliation.tex()$$sep$, $endfor$</div>
+        </div>
+        $else$
+        <div class="g-col-12">
+          <div>$author.html()$</div>
+          <div>$for(by-author.affiliations)$$affiliation.tex()$$sep$, $endfor$</div>
+        </div>
+        $endif$
+      </div>
+      $if(it.metadata.bio)$<div>$it.metadata.bio$</div>$endif$
+      </div>
+      </div>
+     $endfor$
+    </div>
+  </div>
+  $endif$
+
+  $if(refs)$
+  <div class="accordion-item container">
+    <div class="accordion-header d-flex justify-content-between" id="heading-references" role="tab">
+      <button id="authors" class="accordion-button p-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-references" aria-expanded="false" aria-controls="collapse-references">References</button>
+    </div>
+    <div id="collapse-references" class="accordion-body collapse" aria-labelledby="heading-references" data-bs-parent="#quarto-accordion" role="tabpanel">
+      <section id="references" class="accordion-references">
+        $refs$
+      </section>
+    </div>
+  </div>
+  $endif$
+  $if(keywords)$
+  <div class="accordion-item container">
+    <div class="accordion-header d-flex justify-content-between" id="heading-keywords" role="tab">
+      <button id="authors" class="accordion-button p-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-keywords" aria-expanded="false" aria-controls="collapse-keywords">Keywords</button>
+    </div>
+    <div id="collapse-keywords" class="accordion-body collapse" aria-labelledby="heading-keywords" data-bs-parent="#quarto-accordion" role="tabpanel">
+      <div class="accordion-keywords">
+        <strong>Author Keywords</strong>
+        <ul class="mt-3 p-0">
+        $if(keywords/allbutlast)$
+        $for(keywords/allbutlast)$<li>$keywords$, </li>$endfor$
+        <li>$keywords/last$</li>
+        $else$
+        $for(keywords)$<li>$keywords$</li>$endfor$
+        $endif$
+        </ul>
+      </div>
+    </div>
+  </div>
+  $endif$
+
+</div>
+

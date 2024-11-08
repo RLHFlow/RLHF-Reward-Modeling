@@ -80,7 +80,7 @@ if args.n_shards > 1:
 rm = AutoModel.from_pretrained(
     args.model_path,
     torch_dtype=torch.bfloat16,  # Use bfloat16 precision for model weights to save memory
-    attn_implementation="flash_attention_2",  # Specify the attention implementation for efficiency
+    # attn_implementation="flash_attention_2",  # Specify the attention implementation for efficiency
 )
 
 device = f"cuda:{args.device}"  # Define the CUDA device string

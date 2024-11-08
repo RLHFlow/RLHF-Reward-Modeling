@@ -1,0 +1,29 @@
+{
+  "template": "https://github.com/WherewithAI/zetteldev/",
+  "commit": "3ad28682b8cc7e116422816abe2326d430883b1b",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "project_name": "Multi-dimensional Reward Modeling with Uncertainty",
+      "project_slug": "murdo",
+      "project_description": "(Many Uncertain Reward Dimensions, Oh my!)",
+      "key_words": "RLHF, Reward Modeling, PPO, Epistemic Neural Networks, Bayesian Neural Networks, ArmoRM",
+      "author": "Kincaid MacDonald",
+      "github": "professorwug",
+      "publish_url": "https://professorwug.github.io",
+      "repo_url": "https://github.com/sijial430/RLHF-Reward-Modeling",
+      "email": "hey@kincaid.ink",
+      "affiliation": "Princeton",
+      "ORCID": "0000-0002-0760-5497",
+      "_copy_without_render": [
+        "*.sty",
+        "*.cls",
+        "*.bst",
+        "paper/_extensions",
+        "paper/site_libs"
+      ],
+      "_template": "https://github.com/WherewithAI/zetteldev/"
+    }
+  },
+  "directory": null
+}

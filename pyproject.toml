@@ -1,0 +1,90 @@
+[project]
+name = "murdo"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.pixi.project]
+channels = ["nvidia", "conda-forge", "fastai", "pytorch"] 
+platforms = ["linux-64", "osx-arm64"]
+homepage = 'https://wherewith.ai'
+
+[tool.pixi.dependencies] # Conda dependencies managed by pixi
+# # Common & Ubiquitous
+pytorch = {version = ">=2.0.1", channel = "pytorch"}
+torchvision = {version = ">=0.15", channel = "pytorch"}
+polars = ">=0.20,<0.21"
+matplotlib-base = ">=3.8.2,<3.9"
+ipykernel = ">=6.28.0,<6.29"
+numpy = "==1.23.5"
+notebook = ">=7.0.7,<7.1"
+nbformat = ">=5.9.2,<5.10"
+seaborn = ">=0.13.2,<0.14"
+scipy = ">=1.12.0,<1.13"
+pandas = ">=2.2.0,<2.3"
+matplotlib = ">=3.8.2,<3.9"
+jupyter = ">=1.0.0,<1.1"
+rich = ">=13.7.0,<13.8"
+typer = ">=0.9.0,<0.10"
+sympy = ">=1.12,<2"
+plotly = ">=5.18.0,<5.19"
+tqdm = ">=4.66.1,<4.67"
+# Literate Programming
+nbdev = "2.2.10.*"
+fastcore = "1.5.29.*"
+# Project Specific
+
+
+[tool.pixi.pypi-dependencies]
+# editable install of project itself
+murdo = { path = ".", editable = true }
+# other required python packages
+
+
+[tool.pixi.tasks]
+# install the library in editable mode
+postinstall = "python -m ipykernel install --user --name rmurdo-zetteldev && nbdev_install_hooks"
+# test the installation
+test_import = "python -c 'import murdo'"
+# Adding and creating experiments
+new_experiment = "bash .zetteldev/new_experiment.sh"
+# Jupyter cache shorthands
+run_experiments = "jcache project execute --executor local-parallel"
+# NBDev shorthands
+nbsync = "nbdev_export" # export code from notebooks into the library
+nbclean = "nbdev_clean" # remove extraneous notebook metadata to reduce git conflicts
+pysync = "nbdev_update" # sync changes from library to notebooks
+docmaker = "nbdev_docs" # build docs
+zettelmaker = "quarto render nbs/experiments --to gfm --no-execute --output-dir ../zettels --profile zettels" # export experiments to markdown with quarto
+notebooks = "jupyter lab --ip=0.0.0.0"
+
+[tool.pixi.feature.cuda] # CUDA support; install with pixi install -e cuda
+platforms = ["win-64", "linux-64", 'osx-arm64']
+channels = ["nvidia", {channel = "pytorch", priority = -1}]
+system-requirements = {cuda = "12.1"}
+# [tool.pixi.feature.cuda.dependencies] # presently a bug in pixi requires specifying linux
+[tool.pixi.feature.cuda.target.linux-64.dependencies]
+pytorch-cuda = {version = "12.1.*", channel = "pytorch"}
+[tool.pixi.feature.cuda.tasks]
+jupyter = "jupyter notebook"
+
+
+# [tools.pixi.feature.mlx]
+# platforms = ["osx-arm64"]
+# system-requirements = {macos = "13.3"}
+# [tools.pixi.feature.mlx.dependencies]
+# mlx = "*"
+# [tools.pixifeature.mlx.tasks]
+# jupyter = "jupyter notebook"
+
+
+[tool.pixi.environments]
+cuda = ["cuda"]
+# mac = ["mlx"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]

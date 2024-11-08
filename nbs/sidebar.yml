@@ -1,0 +1,6 @@
+website:
+  sidebar:
+    contents:
+      - section: docs
+        contents:
+          - docs/index.ipynb

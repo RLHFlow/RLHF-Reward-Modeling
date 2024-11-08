@@ -1,0 +1,42 @@
+---
+title: Multi-dimensional Reward Modeling with Uncertainty
+author:
+  - name: 
+    orcid: 0000-0002-0760-5497
+    corresponding: true
+    email: hey@kincaid.ink
+    roles: []
+    affiliations:
+      - Princeton
+keywords:
+  - Zetteldev
+abstract: |
+  For a number of years now work has been proceeding in order to bring to perfection the crudely conceived idea of a machine that would not only supply inverse reactive current for use in unilateral phase detractors, but would also be capable of automatically synchronizing cardinal grammeters. Such a machine is the "Turbo-Encabulator."
+plain-language-summary: |
+  We introduce the Turbo Encabulator.
+key-points: []
+date: last-modified
+bibliography: references.bib
+citation:
+  container-title: Earth and Space Science
+number-sections: true
+jupyter: murdo-zetteldev
+---
+
+## Introduction
+
+Recent years have seen a growing appreciation that black-box machine learning methods can understand data better (and, in turn, be better understood) by incorporating geometric information.
+
+
+
+## Data & Methods {#sec-data-methods}
+
+
+## Conclusion
+
+
+## References {.unnumbered}
+
+::: {#refs}
+:::
+

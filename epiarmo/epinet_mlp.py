@@ -254,7 +254,7 @@ def run_epinet_example():
 # %% example testing
 # Create model
 input_dim = 10
-output_dim = 1
+output_dim = 2
 output_sizes = [input_dim, 64, 32, output_dim]
 index_dim = 8
 

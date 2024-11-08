@@ -1,0 +1,16 @@
+\documentclass[
+$if(fontsize)$
+  $fontsize$,
+$endif$
+$if(papersize)$
+  $papersize$paper,
+$endif$
+$for(classoption)$
+  $classoption$$sep$,
+$endfor$
+$if(journaltype)$
+  $journaltype$,
+$else$
+  journal,
+$endif$
+]{IEEEtran}

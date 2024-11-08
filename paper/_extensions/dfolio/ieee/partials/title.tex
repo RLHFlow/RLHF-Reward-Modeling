@@ -1,0 +1,58 @@
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+% Do not put math or special symbols in the title.
+$if(title)$
+\title{$title$$if(thanks)$\thanks{$thanks$}$endif$}
+$endif$
+
+\author{
+$if(funding)$
+\thanks{$for(funding)$$for(funding.statement)$$funding.statement$$endfor$$endfor$}
+$endif$
+$if(author/allbutlast)$
+$for(by-author/allbutlast)$$author.tex()$$sep$,~$endfor$
+and~${ by-author/last:author.tex() }%
+$for(by-author)$
+$if(tex-author-no-affiliation)$
+$else$
+$if(by-author.affiliations)$
+$if(by-author.affiliations/first)$
+$for(by-author.affiliations/first)$
+\thanks{$by-author.name.literal$ is with $affiliation.tex()$%
+$if(by-author.attributes.corresponding)$$if(by-author.email)$  Corresponding author: $by-author.email$$endif$
+$else$$if(by-author.email)$ e-mail: $by-author.email$$endif$$endif$}
+$endfor$
+$if(by-author.affiliations/rest/first)$
+$for(by-author.affiliations/rest/first)$
+\thanks{$affiliation.tex()$}
+$endfor$
+$endif$
+$endif$
+$endif$%by-author.affiliations
+$endif$
+$if(by-author.note.text)$
+\thanks{$by-author.note.text$}
+$endif$
+$endfor$
+$else$
+$for(by-author)$$author.tex()$%
+$if(by-author.affiliations)$
+$if(by-author.affiliations/first)$
+$for(by-author.affiliations/first)$
+\thanks{$by-author.name.literal$ is with $affiliation.tex()$%
+$if(by-author.attributes.corresponding)$$if(by-author.email)$  Corresponding author: $by-author.email$$endif$
+$else$$if(by-author.email)$#e-mail: $by-author.email$$endif$$endif$}
+$endfor$
+$if(by-author.affiliations/rest/first)$
+$for(by-author.affiliations/rest/first)$
+\thanks{$affiliation.tex()$}
+$endfor$
+$endif$
+$endif$
+$endif$
+$if(by-author.note.text)$
+\thanks{$by-author.note.text$}
+$endif$
+$endfor$
+$endif$
+}

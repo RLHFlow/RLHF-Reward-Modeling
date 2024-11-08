@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="$lang$" xml:lang="$lang$"$if(dir)$ dir="$dir$"$endif$>
+<head>
+$metadata.html()$
+<style>
+$styles.html()$
+</style>
+
+<!-- htmldependencies:E3FAD763 -->
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+$if(math)$
+$if(mathjax)$
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+$endif$
+  $math$
+$endif$
+
+$for(css)$
+<link rel="stylesheet" href="$css$" />
+$endfor$
+</head>
+
+<body>
+
+$for(include-before)$
+$include-before$
+$endfor$
+
+$if(title)$
+$title-block.html()$
+$elseif(subtitle)$
+$title-block.html()$
+$elseif(by-author)$
+$title-block.html()$
+$elseif(date)$
+$title-block.html()$
+$elseif(categories)$
+$title-block.html()$
+$elseif(date-modified)$
+$title-block.html()$
+$elseif(doi)$
+$title-block.html()$
+$elseif(abstract)$
+$title-block.html()$
+$elseif(keywords)$
+$title-block.html()$
+$endif$
+
+<div class="quarto-main-body container p-0">
+<section class="quarto-abstract d-flex">
+<div class="container">
+$title-metadata.html()$
+</div>
+</section>
+
+$if(toc)$
+$toc.html()$
+$endif$
+
+<div class="quarto-body-content">
+$body$
+</div>
+
+$after-body.html()$
+</div>
+
+$for(include-after)$
+$include-after$
+$endfor$
+
+</body>
+
+</html>

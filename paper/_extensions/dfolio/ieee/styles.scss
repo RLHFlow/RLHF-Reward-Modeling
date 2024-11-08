@@ -1,0 +1,348 @@
+/*-- scss:uses --*/
+/*-- scss:functions --*/
+/*-- scss:defaults --*/
+$theme: "IEEE";
+
+// Color system
+// scss-docs-start gray-color-variables
+$white:    #f3fafe;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dddddd ;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #333;
+$black:    #000;
+// scss-docs-end gray-color-variables
+
+// Options
+//
+// Quickly modify global styling by enabling or disabling optional features.
+$enable-caret:              true !default;
+$enable-rounded:            false;
+$enable-shadows:            false;
+$enable-gradients:          false;
+$enable-transitions:        true !default;
+$enable-smooth-scroll:      false;
+$enable-grid-classes:       true;
+$enable-print-styles:       true;
+$enable-print-dark:         true;
+$enable-responsive-font-sizes: true!default;
+
+$enable-dark-mode:        true !default;
+$color-mode-type:         data !default; // `data` or `media-query`
+
+// scss-docs-start font-variables
+// stylelint-disable value-keyword-case
+$font-family-serif:       Georgia, serif, "Noto Serif","Times New Roman",Times;
+$font-family-sans-serif:  Verdana, sans-serif, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$font-family-sans-serif-alt:  "Helvetica Neue", sans-serif,"Noto Sans";
+// stylelint-enable value-keyword-case
+$font-size-base:          1rem !default; // Assumes the browser default, typically `16px`
+$font-size-sm:            $font-size-base * .875 !default;
+$font-size-min:           0.75rem;
+$font-size-foot:          max(($font-size-base * .875), $font-size-min);
+$font-size-footnote:      max(($font-size-base * .75), $font-size-min);
+$line-height-base:        1.5 !default;
+
+$h1-font-size:            32px;
+$h2-font-size:            1.145em;
+$h3-font-size:            0.93em;
+// scss-docs-end font-variables
+
+
+// Spacing
+// scss-docs-start spacer-variables-maps
+$spacer: 1rem !default;
+// scss-docs-end spacer-variables-maps
+
+// Body
+//
+// Settings for the `<body>` element.
+
+$body-color:                $gray-900;
+$body-bg:                   $white;
+
+// Style anchor elements.
+$link-color:                #069;
+//$link-decoration:           none;
+
+// scss-docs-start headings-variables
+$headings-font-family:        $font-family-serif;
+$headings-line-height:        32px;
+$headings-color:              inherit !default;
+// scss-docs-end headings-variables
+
+/*-- scss:rules --*/
+
+.text-base-md {
+  font-family: $font-family-sans-serif-alt;
+  font-size: 18px!important;
+  line-height: 30px!important
+}
+#quarto-document-content{
+  a{
+    &:not([href]), &:not([class]){
+      color: $link-color;
+      text-decoration: none;
+    }
+    &:hover{
+      text-decoration: $link-decoration;
+    }
+  }
+  h1{
+    font-family: $font-family-sans-serif;
+    opacity: 0.9;
+    font-weight: 400;
+    line-height: 1.3;
+    margin: 13px 0 25px;
+    padding: 13px 0 15px;
+    text-size-adjust: 100%;
+    word-wrap: break-word;
+    .header-section-number{
+      display: block;
+      font-size:21px;
+      font-weight: 700;
+      color: #0e70a0;
+      &::before{
+        content: "SECTION ";
+      }
+      &::after{
+        content: ".";
+      }
+    }
+    &::after{
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+  h1.title {
+    font-family: $font-family-sans-serif-alt;
+    font-weight: 700;
+    line-height: 38px;
+    margin: 0;
+    padding: 6.4px 16px 12.8px;
+  }
+
+  h2, h3, h4, h5{
+    .header-section-number{color: #333;}
+  }
+  h2 {
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0 0 0.1em;
+  }
+  h3 {
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0 0 0.1em;
+  }
+
+  #title-block-header.quarto-title-block.default{
+    //font-family: $font-family-sans-serif-alt;
+    //font-size: 18px;
+    //line-height: 30px;
+    @extend .text-base-md ;
+    font-weight: 400;
+
+    .quarto-subheader{
+      //padding: 0.25rem 1rem 0.25rem 0;
+      width:100%;
+      div.quarto-author-banner{
+        margin: 0;
+        div.quarto-author{
+          padding: $spacer/4 $spacer $spacer/4 0;
+          div.quarto-author-contents{
+            padding: 4px 16px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            .author-info{
+              a {
+                color: $link-color;
+                &:hover{
+                  text-decoration: underline;
+                }
+              }
+            }
+          }
+        }
+        div.author-all{
+          font-weight: 700;
+          white-space: nowrap;
+        }
+      }
+    }
+    hr{
+      border-top: 2px solid $gray-300;
+      width:98%;
+      margin-left: $spacer;
+    }
+  }
+
+  .quarto-main-body{
+
+    section.quarto-abstract{
+      @extend .text-base-md ;
+      padding: $spacer/2 $spacer;
+      border-bottom: 2px solid $link-color;
+      div.quarto-abstract-block {
+        margin-bottom: 1em!important;
+        .abstract .abstract-title{
+          font-weight: 700;
+          text-transform: none;
+        }
+      }
+      div.funding{
+        strong{
+          @extend .text-base-md ;
+        }
+        div.expand_caret {
+            display: inline-block;
+          /*transform: scale(1.6);
+          margin-left: 8px;
+          margin-top: -4px;*/
+        }
+        a[aria-expanded='true'] > div.expand_caret {
+            transform: rotate(90deg);
+        }
+        .funding-info {
+          padding: 0.6875rem 0 0 1.6875rem;
+        }
+      }
+    }
+
+    div.quarto-body-content{
+      border-bottom: 1px solid #333;
+      section{
+        p{
+          font-family: $font-family-serif;
+          margin: 0 0 1.5em;
+        }
+        .quarto-figure{
+          font-size: 15px;
+          font-family: $font-family-sans-serif;
+          clear: both;
+          margin: 1em 0 2em;
+          figure{
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #c6c6c6;
+            p {
+              margin:0;
+              img{
+                margin: 0 auto;
+                max-width: 100%;
+                vertical-align: middle;
+                border: none;
+              }
+            }
+            figcaption{
+              color: #666;
+              line-height: 1.3;
+              border-bottom: 1px dotted #999;
+              padding: 8px 0;
+            }
+          }
+        }
+      }
+    }
+    counter-reset: appendix;
+
+    .appendix{
+      @extend h1;
+      display: block;
+      counter-increment: appendix;
+
+      &:before{
+        display: block;
+        font-size: 21px;
+        font-weight: 700;
+        color: #0e70a0;
+        content: 'Appendix ' counter(appendix, upper-alpha);
+      }
+      &:after{
+        content: attr(data-options);
+      }
+    }
+
+    #quarto-accordion{
+      @extend .text-base-md ;
+      border: none;
+      border-bottom: 1px solid #333;
+
+      div.accordion-item{
+        border: none;
+        &:not(first-child){
+          border-top: 1px solid #333;
+        }
+
+        div.accordion-header{
+          color: #333;
+          font-size: 1em;
+          padding: 0.5rem;
+          .accordion-button{
+            @extend .text-base-md ;
+            font-weight: 400;
+            color: #333;
+            &:not(collapsed){
+              box-shadow: none;
+            }
+          }
+        }
+        div.accordion-body{
+          padding: 0.8em;
+          div.accordion-authors{
+            &:not(:first-child){
+              padding-top: 1em;
+            }
+            &:not(:last-child){
+              padding-bottom: 1em;
+              border-bottom: 1px solid #ddd;
+            }
+            div.author-card{
+              display: block;
+              .author-photo {
+                max-width: 96%;
+                img{
+                  width:100%;
+                  border-radius: 0.5rem;
+                }
+              }
+            }
+          }
+          #references{
+            @extend .text-base-md ;
+            .csl-entry{
+              overflow-wrap: break-word;
+
+              &:not(:first-child){
+                padding-top: 1em;
+              }
+              &:not(:last-child){
+                padding-bottom: 1em;
+                border-bottom: 1px solid #dddddd;
+              }
+              .csl-right-inline{
+                padding: 0 1em;
+              }
+            }
+          }
+          .accordion-keywords{
+            ul li{
+              display: inline-flex;
+              padding-right: 5px;
+              list-style-type: none!important;
+
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

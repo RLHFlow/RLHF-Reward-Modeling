@@ -1,0 +1,20 @@
+project:
+  type: manuscript
+
+manuscript:
+  meca-bundle: false
+
+execute:
+  freeze: auto
+
+format:
+  html:
+    toc: true
+    comments:
+      hypothesis: true
+  docx: default
+  jats: default
+  ieee-pdf: default
+
+jupyter: repo_name-zetteldev
+

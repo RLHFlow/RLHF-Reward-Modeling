@@ -1,0 +1,60 @@
+$if(abstract)$
+<div class="quarto-abstract-block d-flex row g-0">
+<div class="col-12">
+  <div class="abstract mb-3">
+    <strong class="abstract-title">$labels.abstract$:</strong>
+    $abstract$
+  </div>
+</div>
+</div>
+$elseif(citation.abstract)$
+<div class="quarto-abstract-block d-flex row g-0">
+<div class="col-12">
+  <div class="abstract mb-3">
+    <strong class="abstract-title">$labels.abstract$:</strong>
+    $citation.abstract$
+  </div>
+</div>
+</div>
+$endif$
+
+$if(citation)$
+<div class="citation-meta published-in pb-3">
+$if(citation.container-title)$<strong class="citation-title">Published in:</strong> $citation.container-title$
+($if(citation.volume)$<span>Volume:</span>$citation.volume$, $endif$
+$if(citation.issue)$<span>Issue:</span>$citation.issue$, $endif$
+$if(citation.available-date)$$citation.available-date.literal$$endif$)
+$endif$
+</div>
+
+<div class="container g-0 pt-3">
+<div class="grid">
+  <div class="g-col-6">
+    $if(citation.page)$
+    <div class="citation-meta pb-3"><strong class="citation-title">Page(s):</strong> $citation.page$</div>
+    $endif$
+    $if(date)$
+    <div class="citation-meta pb-3"><strong class="citation-title">Date of Publication:</strong> $date$</div>$endif$
+  </div>
+  <div class="g-col-6">
+    $if(citation.doi)$<div class="citation-meta pb-3"><strong>DOI:</strong> <a href="https://doi.org/$citation.doi$">$citation.doi$</a></div>$endif$
+    $if(citation.publisher)$<div class="citation-meta pb-3"><strong>Publisher: </strong> $citation.publisher$</div>$endif$
+  </div>
+
+  $if(funding)$
+  <div class="g-col-12 pb-3">
+    <div class="funding">
+      <a class="btn p-0" data-bs-toggle="collapse" href="#collapseFA" role="button" aria-expanded="false" aria-controls="collapseFA"><div class="expand_caret caret"><i class="bi bi-caret-right-fill"></i></div><strong>Funding Agency</strong></a>
+      <div class="collapse" id="collapseFA">
+        <div class="funding-info" >
+        $for(funding)$$funding.statement$$sep$; $endfor$
+        </div>
+      </div>
+    </div>
+  </div>
+  $endif$
+</div>
+</div>
+$endif$
+
+

@@ -1,0 +1,84 @@
+Using Python at: /home/piriac/mambaforge/bin/python
+Python version: Python 3.10.12
+2024-11-06 14:26:11,016 - INFO - Starting HTML index generation.
+2024-11-06 14:26:11,016 - INFO - Processing directory: /home/piriac/Wherewithal/
+2024-11-06 14:26:11,016 - INFO - Scanning for HTML files...
+2024-11-06 14:26:11,016 - INFO - Generating index.html without starting the server.
+2024-11-06 14:26:11,017 - INFO - Starting index.html generation and HTTP server.
+2024-11-06 14:26:11,017 - INFO - Starting HTML index generation.
+2024-11-06 14:26:11,017 - INFO - Processing directory: /home/piriac/Wherewithal/
+2024-11-06 14:26:11,017 - INFO - Scanning for HTML files...
+2024-11-06 14:26:13,793 - INFO - Found 9568 HTML files
+2024-11-06 14:26:13,804 - INFO - Writing index to: /home/piriac/Wherewithal/index.html
+2024-11-06 14:26:13,805 - INFO - Successfully created index.html with 9568 files
+2024-11-06 14:26:13,805 - INFO - Attempting to free port 8002 (attempt 1/3)
+2024-11-06 14:26:13,834 - INFO - Found 9568 HTML files
+2024-11-06 14:26:13,845 - INFO - Writing index to: /home/piriac/Wherewithal/index.html
+2024-11-06 14:26:13,845 - INFO - Successfully created index.html with 9568 files
+2024-11-06 14:26:15,865 - INFO - Successfully freed port 8002
+2024-11-06 14:26:16,870 - INFO - Serving at port 8002
+100.126.238.22 - - [07/Nov/2024 19:13:24] code 400, message Bad request version ('ûÍ\\x00*ºº\\x13\\x01\\x13\\x02\\x13\\x03À,À+Ì©À0À/Ì¨À')
+100.126.238.22 - - [07/Nov/2024 19:13:24] "\x16\x03\x01\x02\x00\x01\x00\x01ü\x03\x03ð:Ü»½][è±\x19âÙuÓÅñ\x8cÕÄ¤bèY\x07¨äfßj(§\\ ½²\\÷\x00ï\x8eÖ\x97hò^y\x90\x9f\x7f²üØ\x16ë\x15t\x8dùý\x84\x170\x09ûÍ\x00*ºº\x13\x01\x13\x02\x13\x03À,À+Ì©À0À/Ì¨À" 400 -
+100.126.238.22 - - [07/Nov/2024 19:13:24] code 400, message Bad request version ('\\x88§«æñ\\\\wSn!."\\x98k\\x18ï7Þ\\x1b6\\xadh¨[Ñncr]|ËÏ\\x00,zz\\x13\\x01\\x13\\x02\\x13\\x03À,À+Ì©À0À/Ì¨À')
+100.126.238.22 - - [07/Nov/2024 19:13:24] "\x16\x03\x01\x02\x00\x01\x00\x01ü\x03\x03Ö¼\x01-\x82\x04ñû§zk\x89[g\x1foé\x86ïÒu\x18\x90£¦ Ü½1mÛ² \x88§«æñ\\wSn!."\x98k\x18ï7Þ\x1b6­h¨[Ñncr]|ËÏ\x00,zz\x13\x01\x13\x02\x13\x03À,À+Ì©À0À/Ì¨À" 400 -
+100.126.238.22 - - [07/Nov/2024 19:13:24] code 400, message Bad HTTP/0.9 request type ('\\x16\\x03\\x01\\x00\\x8d\\x01\\x00\\x00\\x89\\x03\\x01"\\xad\\x9bì°Þ\\x17eÑFÏB\\x9f\\x9d¶;\\x8a\\x18g\\x12\\x806Ù\\x82ò\\x87§Îji')
+100.126.238.22 - - [07/Nov/2024 19:13:24] "\x16\x03\x01\x00\x8d\x01\x00\x00\x89\x03\x01"­\x9bì°Þ\x17eÑFÏB\x9f\x9d¶;\x8a\x18g\x12\x806Ù\x82ò\x87§Îji\x0cÿ\x00\x00\x14À" 400 -
+100.126.238.22 - - [07/Nov/2024 19:13:24] code 400, message Bad request syntax ('\\x16\\x03\\x01\\x02\\x00\\x01\\x00\\x01ü\\x03\\x03Ctëm(QÓ4ë,åÐ\\x08dÄ¥\\x18')
+100.126.238.22 - - [07/Nov/2024 19:13:24] "\x16\x03\x01\x02\x00\x01\x00\x01ü\x03\x03Ctëm(QÓ4ë,åÐ\x08dÄ¥\x18" 400 -
+100.126.238.22 - - [07/Nov/2024 19:13:24] code 400, message Bad request version ('ãn¢Ìê×ÌG´V]ÎmÇë\\x9cÏ\\x83<\\x9bBÛ\\x93Å4c\\x00,')
+100.126.238.22 - - [07/Nov/2024 19:13:24] "\x16\x03\x01\x02\x00\x01\x00\x01ü\x03\x03\x1d\x92i2Î"Ù\x87ö%\x87\x09úC\x8fª½l#Êù`-DX¼7Á\x85¹\x8cH Æâë\x89?\x0dãn¢Ìê×ÌG´V]ÎmÇë\x9cÏ\x83<\x9bBÛ\x93Å4c\x00," 400 -
+100.126.238.22 - - [07/Nov/2024 19:13:24] code 400, message Bad request version ('\\x00\\x00\\x14À')
+100.126.238.22 - - [07/Nov/2024 19:13:24] "\x16\x03\x01\x00\x8d\x01\x00\x00\x89\x03\x015)?»Ç ò\x95\\ó\x10¸©UNûð;%ì°!on½A\x94'\x98\x99Ë\x1d\x00\x00\x14À" 400 -
+100.126.238.22 - - [07/Nov/2024 19:13:24] code 400, message Bad request version ('äZ+H\\x00*ZZ\\x13\\x01\\x13\\x02\\x13\\x03À,À+Ì©À0À/Ì¨À')
+100.126.238.22 - - [07/Nov/2024 19:13:24] "\x16\x03\x01\x02\x00\x01\x00\x01ü\x03\x03#\x1c£\x99ì\x8e\x7fý\x14}×¥`-\x9b=;ULâlÛ\x16ll ´\x05\x10â6Ú À\x10ãØ\x8e¼Xz`À\x18üªu-\x04AÌT\x86cÈõ\x08\x11Ís äZ+H\x00*ZZ\x13\x01\x13\x02\x13\x03À,À+Ì©À0À/Ì¨À" 400 -
+100.126.238.22 - - [07/Nov/2024 19:13:24] code 400, message Bad HTTP/0.9 request type ('\\x16\\x03\\x01\\x02\\x00\\x01\\x00\\x01ü\\x03\\x039Ú]Õ\\x86V\\x83zßqm\\x862þÝ2ïí\\x141{§Nã-âÓÜPz\\x8d\\x93')
+100.126.238.22 - - [07/Nov/2024 19:13:24] "\x16\x03\x01\x02\x00\x01\x00\x01ü\x03\x039Ú]Õ\x86V\x83zßqm\x862þÝ2ïí\x141{§Nã-âÓÜPz\x8d\x93 äs\x9aÝ}ó,Å÷´õ5/§F\x9a\x00Æ\x02\x8dfíÖ«ôué,=\x8fî\x91\x00,êê\x13\x01\x13\x02\x13\x03À,À+Ì©À0À/Ì¨À" 400 -
+100.126.238.22 - - [07/Nov/2024 19:13:24] code 400, message Bad request version ('gfBè\\x00\\x00\\x14À')
+100.126.238.22 - - [07/Nov/2024 19:13:24] "\x16\x03\x01\x00\x8d\x01\x00\x00\x89\x03\x01\x94oMp÷\x9f2)z\x96OË99\x95HÚ{à"÷ïß,\x0b¹s\x09gfBè\x00\x00\x14À" 400 -
+100.126.238.22 - - [07/Nov/2024 19:13:24] "GET /24-Paginator/index.html HTTP/1.1" 304 -
+100.126.238.22 - - [07/Nov/2024 19:36:55] "GET /index.html HTTP/1.1" 200 -
+100.126.238.22 - - [07/Nov/2024 19:36:59] "GET /24-Paginator/index.html HTTP/1.1" 304 -
+100.126.238.22 - - [07/Nov/2024 19:36:59] "GET /24-Paginator/index.css HTTP/1.1" 304 -
+100.126.238.22 - - [07/Nov/2024 19:36:59] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:36:59] "GET /24-Paginator/image.jpeg HTTP/1.1" 404 -
+100.126.238.22 - - [07/Nov/2024 19:36:59] "GET /24-Paginator/paginator.js HTTP/1.1" 304 -
+100.126.238.22 - - [07/Nov/2024 19:36:59] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:36:59] "GET /24-Paginator/image.jpeg HTTP/1.1" 404 -
+100.126.238.22 - - [07/Nov/2024 19:36:59] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:36:59] "GET /24-Paginator/image.jpeg HTTP/1.1" 404 -
+100.126.238.22 - - [07/Nov/2024 19:36:59] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:36:59] "GET /favicon.ico HTTP/1.1" 404 -
+100.126.238.22 - - [07/Nov/2024 19:37:00] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:37:00] "GET /24-Paginator/video.mp4 HTTP/1.1" 404 -
+100.126.238.22 - - [07/Nov/2024 19:37:00] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:37:00] "GET /24-Paginator/video.mp4 HTTP/1.1" 404 -
+100.126.238.22 - - [07/Nov/2024 19:37:00] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:37:00] "GET /24-Paginator/image.jpeg HTTP/1.1" 404 -
+100.126.238.22 - - [07/Nov/2024 19:37:00] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:37:00] "GET /24-Paginator/video.mp4 HTTP/1.1" 404 -
+100.126.238.22 - - [07/Nov/2024 19:37:00] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:37:00] "GET /24-Paginator/video.mp4 HTTP/1.1" 404 -
+100.126.238.22 - - [07/Nov/2024 19:37:00] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:37:00] "GET /24-Paginator/image.jpeg HTTP/1.1" 404 -
+100.126.238.22 - - [07/Nov/2024 19:37:00] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:37:00] "GET /24-Paginator/video.mp4 HTTP/1.1" 404 -
+100.126.238.22 - - [07/Nov/2024 19:37:00] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:37:00] "GET /24-Paginator/video.mp4 HTTP/1.1" 404 -
+100.126.238.22 - - [07/Nov/2024 19:37:00] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:37:00] "GET /24-Paginator/video.mp4 HTTP/1.1" 404 -
+100.126.238.22 - - [07/Nov/2024 19:37:00] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:37:00] "GET /24-Paginator/video.mp4 HTTP/1.1" 404 -
+100.126.238.22 - - [07/Nov/2024 19:37:00] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:37:00] "GET /24-Paginator/video.mp4 HTTP/1.1" 404 -
+100.126.238.22 - - [07/Nov/2024 19:37:00] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:37:00] "GET /24-Paginator/video.mp4 HTTP/1.1" 404 -
+100.126.238.22 - - [07/Nov/2024 19:37:00] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:37:00] "GET /24-Paginator/video.mp4 HTTP/1.1" 404 -
+100.126.238.22 - - [07/Nov/2024 19:37:00] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:37:00] "GET /24-Paginator/video.mp4 HTTP/1.1" 404 -
+100.126.238.22 - - [07/Nov/2024 19:37:00] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:37:00] "GET /24-Paginator/video.mp4 HTTP/1.1" 404 -
+100.126.238.22 - - [07/Nov/2024 19:37:00] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:37:00] "GET /24-Paginator/video.mp4 HTTP/1.1" 404 -
+100.126.238.22 - - [07/Nov/2024 19:37:00] code 404, message File not found
+100.126.238.22 - - [07/Nov/2024 19:37:00] "GET /24-Paginator/video.mp4 HTTP/1.1" 404 -

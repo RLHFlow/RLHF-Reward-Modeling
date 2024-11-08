@@ -1,0 +1,16 @@
+\pagebreak[3]
+$for(by-author)$
+$if(it.metadata.bio)$
+$if(it.metadata.photo)$
+\begin{IEEEbiography}[\includegraphics{$it.metadata.photo$}]{$it.name.literal$}
+$else$
+\begin{IEEEbiographynophoto}{$it.name.literal$}
+$endif$
+$it.metadata.bio$
+$if(it.metadata.photo)$
+\end{IEEEbiography}
+$else$
+\end{IEEEbiographynophoto}
+$endif$
+$endif$
+$endfor$

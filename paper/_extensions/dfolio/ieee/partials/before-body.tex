@@ -1,0 +1,42 @@
+
+% The paper headers
+$if(pageheader)$
+\markboth{$pageheader.left$}{$pageheader.right$}
+$endif$
+$if(pubid)$
+\IEEEpubid{$pubid$~\copyright~\theyear IEEE}
+$endif$
+
+% use for special paper notices
+$if(specialpapernotice)$
+\IEEEspecialpapernotice{($specialpapernotice$)}
+$endif$
+
+% make the title area
+\maketitle
+
+% As a general rule, do not put math, special symbols or citations
+% in the abstract or keywords.
+$if(abstract)$
+\begin{abstract}
+$abstract$
+\end{abstract}
+$endif$
+% Note that keywords are not normally used for peerreview papers.
+$if(keywords)$
+\begin{IEEEkeywords}
+$for(keywords)$$keywords$$sep$, $endfor$
+\end{IEEEkeywords}
+$endif$
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+% \IEEEpeerreviewmaketitle
+
+

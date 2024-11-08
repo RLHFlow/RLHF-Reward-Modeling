@@ -1,0 +1,60 @@
+<header id="title-block-header" class="quarto-title-block default" itemprop="headline">
+<div class="col-12">
+<div class="quarto-header">
+
+  <div class="quarto-title column-body">
+  <div class="container col">
+    <h1 class="title" itemprop="headline">$title$</h1>
+    $if(subtitle)$<p class="subtitle lead">$subtitle$</p>$endif$
+    <div class="container">
+    <div class="mb-3 mt-2 d-grid gap-3 d-md-flex">
+      $if(citation.publisher)$<span class="publisher btn text-success"><strong>Publisher:</strong> $citation.publisher$</span>$endif$
+      <a href="#citation" class="btn btn-outline-primary" role="button">Cite This</a>
+      $if(pdf)$<a href="$pdf$" class="btn btn-danger text-white" role="button"><i class="bi bi-file-pdf" rel="img" aria-label="PDF"></i>PDF</a>$endif$
+    </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="quarto-subheader">
+  <div class="quarto-author-banner p-0">
+  <div class="d-flex align-items-center flex-nowrap">
+    $if(by-affiliation/first)$
+    <div class="quarto-author overflow-hidden">
+    <div class="d-flex flex-nowrap">
+      <div class="quarto-author-contents align-items-center text-truncate pe-0">
+        $if(author/allbutlast)$
+        $for(by-author/allbutlast)$$author.html()$$sep$; $endfor$ and ${ by-author/last:author.html() }
+        $else$
+        $for(by-author)$$author.html()$$endfor$
+        $endif$
+      </div>
+    </div>
+    </div>
+    $elseif(by-author)$
+    <div class="quarto-author overflow-hidden">
+    <div class="d-flex flex-nowrap">
+      <div class="quarto-author-contents align-items-center text-truncate pe-0">
+        $if(author/allbutlast)$
+        $for(by-author/allbutlast)$$author.html()$$sep$; $endfor$ and ${ by-author/last:author.html() }
+        $else$
+        $for(by-author)$$author.html()$$endfor$
+        $endif$
+      </div>
+    </div>
+    </div>
+    $endif$
+
+    <div class="d-none d-md-flex align-items-center">
+    <div class="author-all d-none d-md-block">
+      <a href="#authors" class="">All Authors</a>
+    </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+</div>
+</div>
+<hr class="px-3 mt-2">
+</header>
