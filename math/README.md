@@ -73,7 +73,7 @@ torchrun --nproc_per_node 8 --master_port 20001 -m axolotl.cli.train llama-3.1-p
 ```bibtex
 @misc{xiong2024rlhflowmath,
       author={Wei Xiong and Hanning Zhang and Tong Zhang},
-  title = {TRL: Transformer Reinforcement Learning},
+  title = {An Implementation of Generative PRM},
   year = {2024},
   publisher = {GitHub},
   journal = {GitHub repository},
