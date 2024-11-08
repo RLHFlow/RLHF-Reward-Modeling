@@ -75,6 +75,20 @@ We provide test sets on GSM8K and MATH500 for best-of-N evaluation
 - [RLHFlow/Deepseek-GSM8K-Test](https://huggingface.co/datasets/RLHFlow/Deepseek-GSM8K-Test)
 - [RLHFlow/Deepseek-MATH500-Test](https://huggingface.co/datasets/RLHFlow/Deepseek-MATH500-Test)
 
+A sample of the dataset:
+```
+{
+      "prompt": "Convert the point $(0,3)$ in rectangular coordinates to polar coordinates."
+      "answers":
+      [
+            "The rectangular coordinates $(x,y)$ can be converted to polar coordinates $(r,\\theta)$ using..",
+            "The rectangular coordinates $(x,y)$ and polar coordinates $(r,\\theta)$ are related...",
+            " We have that $r = \\sqrt{0^2 + 3^2} = 3.$..."
+      ]
+      "labels": [1,0,1]
+}
+```
+
 ```bibtex
 @misc{xiong2024rlhflowmath,
       author={Wei Xiong and Hanning Zhang and Tong Zhang},
