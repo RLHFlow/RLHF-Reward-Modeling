@@ -69,6 +69,11 @@ torchrun --nproc_per_node 8 --master_port 20001 -m axolotl.cli.train llama-3.1-p
 
 ## Usage Example for Pairwise Comparison
 
+We provide test sets on GSM8K and MATH500 for best-of-N evaluation
+- [RLHFlow/Mistral-GSM8K-Test](https://huggingface.co/datasets/RLHFlow/Mistral-GSM8K-Test)
+- [RLHFlow/Mistral-MATH500-Test](https://huggingface.co/datasets/RLHFlow/Mistral-MATH500-Test)
+- [RLHFlow/Deepseek-GSM8K-Test](https://huggingface.co/datasets/RLHFlow/Deepseek-GSM8K-Test)
+- [RLHFlow/Deepseek-MATH500-Test](https://huggingface.co/datasets/RLHFlow/Deepseek-MATH500-Test)
 
 ```bibtex
 @misc{xiong2024rlhflowmath,
