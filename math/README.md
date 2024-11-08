@@ -92,6 +92,24 @@ The length of `answers` is the same as the length of `labels`.
 
 each position of `labels` indicates whether that position of `answers` is correct (1 means correct and 0 means incorrect).
 
+**Running the evaluation code:**
+```
+accelerate launch prm_evaluate.py --reward_name_or_path RLHFlow/Llama3.1-8B-PRM-Mistral-Data \
+      --dataset RLHFlow/Mistral-MATH500-Test \
+      --output_dir Mistral-PRM-Mistral-MATH500 \
+      --num_n 1024 \
+      --model_type Mistral
+```
+You may specify `--reward_name_or_path` as a local model of Huggingface model, `--dataset` from above, or your own with the same format. 
+
+The results will be stored in `{output_dir}.json`. 
+
+The `--num_n` specifies the N for best-of-N. 
+
+The `--model_type` should be either Mistral or Deepseek, depending on the training data.
+
+You may replace `prm_evaluate.py` with `orm_evaluate.py` if you want to evaluate the Outcome Reward Model.
+
 
 ```bibtex
 @misc{xiong2024rlhflowmath,
