@@ -265,16 +265,16 @@ model, indexer = make_mlp_epinet(
     expose_layers=[False] + [False]*(len(output_sizes)-2 -1) + [False]
 )
 
-# Generate sample data
-batch_size = 4
-x = torch.randn(batch_size, input_dim)
-z = indexer(None)
+# # Generate sample data
+# batch_size = 4
+# x = torch.randn(batch_size, input_dim)
+# z = indexer(None)
 
-print(z.shape)
+# print(z.shape)
 
-# Forward pass
-output = model(x, z)
+# # Forward pass
+# output = model(x, z)
 
-# Access outputs
-train_pred = output.train  # Shape: [batch_size, output_dim]
-prior_pred = output.prior  # Shape: [batch_size, output_dim]
+# # Access outputs
+# train_pred = output.train  # Shape: [batch_size, output_dim] # this is the trainable part of the prediction. It includes both
+# prior_pred = output.prior  # Shape: [batch_size, output_dim]. This is the completely random part
