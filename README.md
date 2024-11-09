@@ -5,13 +5,17 @@
 The initial release of tis project focus on the Bradley-Terry reward modeling and pairwise preference model. Since then, we have included more advanced techniques to construct preference model. The structure of this project is 
 
 - [`bradley-terry-rm`](./bradley-terry-rm/) to train the classic Bradley-Terry reward model;
-- [`pair-pm`](./pair-pm/) to train the pairwise preference model, which takes a prompt and **two responses** as the input and directly predicts the probability of the first response is being preferred;
+- [`pair-pm`](./pair-pm/) to train the pairwise preference model, which takes a prompt and **two responses** as the input and directly predicts the probability of the first response is being preferred. We formulate the problem as a chat between the user and the model to leverage the next-token prediction ability of the model, which is referred to as generative RM in the subsequent literature.
 	- [`SSRM`](./pair-pm/SRRM/): the code of the paper [Semi-Supervised Reward Modeling via Iterative Self-Training](https://arxiv.org/abs/2409.06903)
+ 	- [`RRM`](./pair-pm/RRM/): to leverage casual inference to augment the preference dataset and mitigate the reward hacking. See https://arxiv.org/pdf/2409.13156v1 	
 - [`armo-rm`](./armo-rm/) to train the ArmoRM, which starts with a multi-objective reward model and the reward vector is aggregated by a mixture-of-expert approach in a context-dependent way. See our technical report [[ArmoRM] Interpretable Preferences via Multi-Objective Reward Modeling and Mixture-of-Experts](https://arxiv.org/abs/2406.12845) for details.
-
+- [`odin-rm`](./odin/) to disentangle the reward modeling from length bias. See https://arxiv.org/pdf/2402.07319
+- [`math-rm`](./math-rm/): the code to train process-supervised reward (PRM) and outcome-supervised reward (ORM) using the next-token prediction. We open-source the data, code, hyper-parameter, and model for a robust recipe that is easy to reproduce.
 
 ## News
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+🚀 **[Nov 2024]** PRM and ORM training code are released under the `math-rm/` folder!
 
 🚀 **[Sep 2024]** ArmoRM training code is released under the `armo-rm/` folder!
 
@@ -132,10 +136,18 @@ Our models and codes have contributed to many academic research projects, e.g.,
 22. Zhaolin Gao et al., "Rebel: Reinforcement learning via regressing relative rewards"
 
 
+## Contributors
+
+Thanks to all of our contributors to date (Made with [contrib.rocks](https://contrib.rocks)).
+
+<a href="https://github.com/RLHFlow/RLHF-Reward-Modeling/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=RLHFlow/RLHF-Reward-Modeling" />
+</a>
+
 
 ## Citation
 
-The repo was part of the iterative rejection sampling fine-tuning and iterative DPO. If you find the content of this repo useful in your work, please consider citing:
+If you find the content of this repo useful in your work, please consider citing:
 
 ```bibtex
 @article{dong2024rlhf,
@@ -150,16 +162,6 @@ The repo was part of the iterative rejection sampling fine-tuning and iterative 
       author={Haoxiang Wang and Wei Xiong and Tengyang Xie and Han Zhao and Tong Zhang},
       booktitle={The 2024 Conference on Empirical Methods in Natural Language Processing},
       year={2024}
-}
-
-
-@article{dong2023raft,
-  title={{RAFT}: Reward rAnked FineTuning for Generative Foundation Model Alignment},
-  author={Hanze Dong and Wei Xiong and Deepanshu Goyal and Yihan Zhang and Winnie Chow and Rui Pan and Shizhe Diao and Jipeng Zhang and KaShun SHUM and Tong Zhang},
-  journal={Transactions on Machine Learning Research},
-  issn={2835-8856},
-  year={2023},
-  url={https://openreview.net/forum?id=m7p5O7zblY},
 }
 
 @article{xiong2024iterative,
