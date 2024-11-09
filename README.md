@@ -136,6 +136,14 @@ Our models and codes have contributed to many academic research projects, e.g.,
 22. Zhaolin Gao et al., "Rebel: Reinforcement learning via regressing relative rewards"
 
 
+## Contributors
+
+Thanks to all of our contributors to date (Made with [contrib.rocks](https://contrib.rocks)).
+
+<a href="https://github.com/RLHFlow/RLHF-Reward-Modeling/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=RLHFlow/RLHF-Reward-Modeling" />
+</a>
+
 
 ## Citation
 
