@@ -174,6 +174,29 @@ We annotate a specific step as either positive “+” if there exists a correct
 This setup is referred to as the hard estimation in the original paper of **Math-Shepherd**. 
 Eventually, we obtain 273K trajectories with step-wise annotation for the Mistral model and 253K for the Deepseek model.
 
+### PRM Training
+
+We follow the same routine of RLHFlow to formulate the problem as a multi-turn chat task so that we can directly leverage the training code of **axolotl** package.
+The samples are packed into blocks with length 8192 to accelerate training. 
+We use a learning rate of 2e-6 and a global batch size of 32. 
+We only train on the assistant round (the “+” and “−”).
+The training code and more detailed hyper-parameter configuration are also available in `llama-3.1-orm.yaml` and `llama-3.1-prm.yaml`. 
+
+We mention in passing that the idea of formulating the reward modeling as an instruction task was proved
+to be effective in Slic-HF and RSO in pairwise preference model training and RLHFlow developed the state-of-the-art open-source models by formulating
+the problem as a chat task. 
+More recently, a similar idea has been developed under the name of generative
+reward model.
+
+### ORM Training
+
+We formulate each training sample as a single-turn chat where the user round is the question plus all the mathematical reasoning steps, 
+and the assistant round is the sign (the “+” and “−”). 
+The sign solely depends on whether the final answer is correct or not. 
+The ORM training data is modified from PRM training data where we concatenate all the reasoning steps and keep the final sign. 
+Similar to PRM training, we only calculate the loss on the assistant round.
+We train the ORM for 1 epoch with a block size of 8192 a learning rate of 2e-6 and a global batch size of 32.
+
 ## Experiment Results
 
 ```bibtex
