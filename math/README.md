@@ -199,6 +199,12 @@ We train the ORM for 1 epoch with a block size of 8192 a learning rate of 2e-6 a
 
 ## Experiment Results
 
+<p float="left">
+  <img src="figs/mistral_gsm8k.pdf" alt="Image 1" width="200" />
+  <img src="figs/mistral_math.pdf" alt="Image 2" width="200" />
+</p>
+
+
 ```bibtex
 @misc{xiong2024rlhflowmath,
       author={Wei Xiong and Hanning Zhang and Tong Zhang},
