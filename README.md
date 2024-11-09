@@ -7,10 +7,10 @@ The initial release of tis project focus on the Bradley-Terry reward modeling an
 - [`bradley-terry-rm`](./bradley-terry-rm/) to train the classic Bradley-Terry reward model;
 - [`pair-pm`](./pair-pm/) to train the pairwise preference model, which takes a prompt and **two responses** as the input and directly predicts the probability of the first response is being preferred. We formulate the problem as a chat between the user and the model to leverage the next-token prediction ability of the model, which is referred to as generative RM in the subsequent literature.
 	- [`SSRM`](./pair-pm/SRRM/): the code of the paper [Semi-Supervised Reward Modeling via Iterative Self-Training](https://arxiv.org/abs/2409.06903)
- 	- ['RRM'](./pair-pm/RRM/): to leverage casual inference to augment the preference dataset and mitigate the reward hacking. See https://arxiv.org/pdf/2409.13156v1 	
+ 	- [`RRM`](./pair-pm/RRM/): to leverage casual inference to augment the preference dataset and mitigate the reward hacking. See https://arxiv.org/pdf/2409.13156v1 	
 - [`armo-rm`](./armo-rm/) to train the ArmoRM, which starts with a multi-objective reward model and the reward vector is aggregated by a mixture-of-expert approach in a context-dependent way. See our technical report [[ArmoRM] Interpretable Preferences via Multi-Objective Reward Modeling and Mixture-of-Experts](https://arxiv.org/abs/2406.12845) for details.
 - [`odin-rm`](./odin/) to disentangle the reward modeling from length bias. See https://arxiv.org/pdf/2402.07319
-- ['math-rm'](./math-rm/): the code to train process-supervised reward (PRM) and outcome-supervised reward (ORM) using the next-token prediction. We open-source the data, code, hyper-parameter, and model for a robust recipe that is easy to reproduce.
+- [`math-rm`](./math-rm/): the code to train process-supervised reward (PRM) and outcome-supervised reward (ORM) using the next-token prediction. We open-source the data, code, hyper-parameter, and model for a robust recipe that is easy to reproduce.
 
 ## News
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
