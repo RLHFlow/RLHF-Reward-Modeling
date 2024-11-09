@@ -154,9 +154,27 @@ The `--model_type` should be either `Mistral` or `Deepseek`, depending on the tr
 
 You may replace `prm_evaluate.py` with `orm_evaluate.py` if you want to evaluate the Outcome Reward Model.
 
-# Experiment Setup
+## Experiment Setup
 
-# Experiment Results
+### Task, datasets, and models:
+
+We use the test sets of MATH and GSM8K to measure the model’s ability to solve the mathematical problems. 
+We also use the 7.5K training problems of MATH and 7.47K training problems of GSM8K as the training prompt set. 
+We finetune the Mistral-7B on MetaMath dataset for 3 epochs with a learning rate of `5e−6` and a global batch size of 64. 
+We also use deepseek-math-7b-instruct in our experiment. 
+These two models will be used as the generator for our subsequent experiments.
+
+### Process-wise data annotation:
+
+We use automatic process supervision to create the training data of PRM. 
+Specifically, for each problem in the training set, we independently generate 15 trajectories with step-by-step CoT reasoning.
+The generation is with a temperature of 0.7, and a maximal token of 2048 or until it reaches the final answer and stops. 
+Then, starting from each intermediate step, we sample 16 completions to reach the final answer. 
+We annotate a specific step as either positive “+” if there exists a correct trajectory starting from this step and as negative “−” if all the completions are wrong. 
+This setup is referred to as the hard estimation in the original paper of **Math-Shepherd**. 
+Eventually, we obtain 273K trajectories with step-wise annotation for the Mistral model and 253K for the Deepseek model.
+
+## Experiment Results
 
 ```bibtex
 @misc{xiong2024rlhflowmath,
