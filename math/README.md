@@ -241,7 +241,7 @@ We train the ORM for 1 epoch with a block size of 8192 a learning rate of 2e-6 a
 If you find our work useful, please consider citing the following:
 ```bibtex
 @misc{xiong2024rlhflowmath,
-      author={Wei Xiong and Hanning Zhang and Tong Zhang},
+      author={Wei Xiong and Hanning Zhang and Nan Jiang and Tong Zhang},
   title = {An Implementation of Generative PRM},
   year = {2024},
   publisher = {GitHub},
