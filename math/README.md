@@ -182,11 +182,6 @@ We use a learning rate of 2e-6 and a global batch size of 32.
 We only train on the assistant round (the “+” and “−”).
 The training code and more detailed hyper-parameter configuration are also available in `llama-3.1-orm.yaml` and `llama-3.1-prm.yaml`. 
 
-We mention in passing that the idea of formulating the reward modeling as an instruction task was proved
-to be effective in Slic-HF and RSO in pairwise preference model training and RLHFlow developed the state-of-the-art open-source models by formulating
-the problem as a chat task. 
-More recently, a similar idea has been developed under the name of generative
-reward model.
 
 ### ORM Training
 
@@ -239,7 +234,9 @@ We train the ORM for 1 epoch with a block size of 8192 a learning rate of 2e-6 a
 | Deepseek-7B | Mistral-ORM@1024 (OOD) | 90.3 | 54.9 |
 | Deepseek-7B | Mistral-PRM@1024 (OOD) | 91.9 | 56.9 |
 
+[1] Wang, Peiyi, Lei Li, Zhihong Shao, Runxin Xu, Damai Dai, Yifei Li, Deli Chen, Yu Wu, and Zhifang Sui. "Math-shepherd: Verify and reinforce llms step-by-step without human annotations." In Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics, 2024.
 
+[2] Zhang, Hanning, Wang, Pengcheng, Diao, Shizhe, Lin, Yong, Pan, Rui, Dong, Hanze, Zhang, Dylan, Molchanov, Pavlo, and Zhang, Tong. 2024. Entropy-regularized process reward model.
 ## Citation
 If you find our work useful, please consider citing the following:
 ```bibtex
