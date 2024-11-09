@@ -131,6 +131,7 @@ Each answer will be converted directly into the following single-turn conversati
 We extract the probability of `+` from the assistant. It represents the outcome reward score for this answer.
 
 **Answer Selection:**
+
 Once we get the reward scores for a pair or more answers, we select the answer with the highest score.
 
 We compare the answer with the corresponding label to see whether the selected one is correct or not.
@@ -143,13 +144,13 @@ accelerate launch prm_evaluate.py --reward_name_or_path RLHFlow/Llama3.1-8B-PRM-
       --num_n 1024 \
       --model_type Mistral
 ```
-You may specify `--reward_name_or_path` as a local model of Huggingface model, `--dataset` from above, or your own with the same format. 
+You may specify `--reward_name_or_path` as a local model or Huggingface model, `--dataset` from above, or your own with the same format. 
 
 The results will be stored in `{output_dir}.json`. 
 
 The `--num_n` specifies the N for best-of-N. 
 
-The `--model_type` should be either Mistral or Deepseek, depending on the training data.
+The `--model_type` should be either `Mistral` or `Deepseek`, depending on the training data.
 
 You may replace `prm_evaluate.py` with `orm_evaluate.py` if you want to evaluate the Outcome Reward Model.
 
