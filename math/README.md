@@ -227,7 +227,7 @@ We train the ORM for 1 epoch with a block size of 8192 a learning rate of 2e-6 a
 
 | Model         | Method                    | GSM8K | MATH |
 | ------------- | ------------- | ------------- | -------- |
-| Deepseek-7B | Pass@1 | 83.9 | 38.4 |
+| Deepseek-7B | Pass@1 | 83.9 | 42.4 |
 | Deepseek-7B | Majority Voting@1024 | 89.7 | 57.4  |
 | Deepseek-7B | Deepseek-ORM@1024 | 93.4 | 52.4 |
 | Deepseek-7B | Deepseek-PRM@1024 | 93.0 | 58.1 |
