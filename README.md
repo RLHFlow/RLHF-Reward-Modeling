@@ -2,20 +2,20 @@
 
 ## Structure 
 
-The initial release of tis project focus on the Bradley-Terry reward modeling and pairwise preference model. Since then, we have included more advanced techniques to construct preference model. The structure of this project is 
+The initial release of this project focuses on the Bradley-Terry reward modeling and pairwise preference model. Since then, we have included more advanced techniques to construct a preference model. The structure of this project is 
 
 - [`bradley-terry-rm`](./bradley-terry-rm/) to train the classic Bradley-Terry reward model;
-- [`pair-pm`](./pair-pm/) to train the pairwise preference model, which takes a prompt and **two responses** as the input and directly predicts the probability of the first response is being preferred. We formulate the problem as a chat between the user and the model to leverage the next-token prediction ability of the model, which is referred to as generative RM in the subsequent literature.
+- [`pair-pm`](./pair-pm/) to train the pairwise preference model, which takes a prompt and **two responses** as the input and directly predicts the probability of the first response being preferred. We formulate the problem as a chat between the user and the model to leverage the next-token prediction ability of the model, which is referred to as generative RM in the subsequent literature.
 	- [`SSRM`](./pair-pm/SRRM/): the code of the paper [Semi-Supervised Reward Modeling via Iterative Self-Training](https://arxiv.org/abs/2409.06903)
- 	- [`RRM`](./pair-pm/RRM/): to leverage casual inference to augment the preference dataset and mitigate the reward hacking. See https://arxiv.org/pdf/2409.13156v1 	
-- [`armo-rm`](./armo-rm/) to train the ArmoRM, which starts with a multi-objective reward model and the reward vector is aggregated by a mixture-of-expert approach in a context-dependent way. See our technical report [[ArmoRM] Interpretable Preferences via Multi-Objective Reward Modeling and Mixture-of-Experts](https://arxiv.org/abs/2406.12845) for details.
+ 	- [`RRM`](./pair-pm/RRM/): to leverage causal inference to augment the preference dataset and mitigate the reward hacking. See https://arxiv.org/pdf/2409.13156v1 	
+- [`armo-rm`](./armo-rm/) to train the ArmoRM, which starts with a multi-objective reward model, and the reward vector is aggregated by a mixture-of-expert approach in a context-dependent way. See our technical report [[ArmoRM] Interpretable Preferences via Multi-Objective Reward Modeling and Mixture-of-Experts](https://arxiv.org/abs/2406.12845) for details.
 - [`odin-rm`](./odin/) to disentangle the reward modeling from length bias. See https://arxiv.org/pdf/2402.07319
 - [`math-rm`](./math-rm/): the code to train process-supervised reward (PRM) and outcome-supervised reward (ORM) using the next-token prediction. We open-source the data, code, hyper-parameter, and model for a robust recipe that is easy to reproduce.
 
 ## News
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-🚀 **[Nov 2024]** PRM and ORM training code are released under the `math-rm/` folder!
+🚀 **[Nov 2024]** PRM and ORM training codes are released under the `math-rm/` folder!
 
 🚀 **[Sep 2024]** ArmoRM training code is released under the `armo-rm/` folder!
 
@@ -72,11 +72,11 @@ TL;DL: this is a repo for training the reward/preference model for [DRL-based RL
 
 ## Installation instructions
 
-It is recommeded to create separate environmnets for the Bradley-Terry reward model and pair wise preference model. The installation instructions are provided in the corresponding folders.
+It is recommended to create separate environments for the Bradley-Terry reward model and pair-wise preference model. The installation instructions are provided in the corresponding folders.
 
 
 ## Dataset Preparation
-The dataset should be preprocessed as the standard format, where each of the sample consists of two conversations 'chosen' and 'rejected' and they share the same prompt. Here is an example of the rejected sample in the comparison pair. 
+The dataset should be preprocessed in the standard format, where each of the samples consists of two conversations 'chosen' and 'rejected' and they share the same prompt. Here is an example of the rejected sample in the comparison pair. 
 
 ```python
 [
@@ -117,7 +117,7 @@ Our models and codes have contributed to many academic research projects, e.g.,
 3. Xie, Tengyang, et al. "Exploratory Preference Optimization: Harnessing Implicit Q*-Approximation for Sample-Efficient RLHF." arXiv preprint arXiv:2405.21046 (2024).
 4. Zhong, Han, et al. "Dpo meets ppo: Reinforced token optimization for rlhf." arXiv preprint arXiv:2404.18922 (2024).
 5. Zheng, Chujie, et al. "Weak-to-strong extrapolation expedites alignment." arXiv preprint arXiv:2404.16792 (2024).
-6. Ye, Chenlu, et al. "A theoretical analysis of nash learning from human feedback under general kl-regularized preference." arXiv preprint arXiv:2402.07314 (2024).
+6. Ye, Chenlu, et al. "A theoretical analysis of Nash learning from human feedback under general kl-regularized preference." arXiv preprint arXiv:2402.07314 (2024).
 7. Chen, Ruijun, et al. "Self-Evolution Fine-Tuning for Policy Optimization"
 8. Li Bolian, et al., Cascade Reward Sampling for Efficient Decoding-Time Alignment
 9. Zhang, Yuheng, et al. "Iterative Nash Policy Optimization: Aligning LLMs with General Preferences via No-Regret Learning"
