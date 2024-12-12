@@ -67,6 +67,12 @@ Running the code for PRM/ORM.
 torchrun --nproc_per_node 8 --master_port 20001 -m axolotl.cli.train llama-3.1-prm.yaml --deepspeed ../deepspeed_configs/deepspeed_3.json
 ```
 
+For completeness, we also present a version of scalar ORM implemention. The use of this version is very similar to the Braldey-Terry reward model. 
+
+```shell
+accelerate launch ./scalar_orm_train.py --deepspeed ../deepspeed_configs/deepspeed_3.json
+```
+
 ## Usage Example for Pairwise Comparison
 
 We provide test sets on GSM8K and MATH500 for best-of-N evaluation
