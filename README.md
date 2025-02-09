@@ -11,9 +11,12 @@ The initial release of this project focuses on the Bradley-Terry reward modeling
 - [`armo-rm`](./armo-rm/) to train the ArmoRM, which starts with a multi-objective reward model, and the reward vector is aggregated by a mixture-of-expert approach in a context-dependent way. See our technical report [[ArmoRM] Interpretable Preferences via Multi-Objective Reward Modeling and Mixture-of-Experts](https://arxiv.org/abs/2406.12845) for details.
 - [`odin-rm`](./odin/) to disentangle the reward modeling from length bias. See https://arxiv.org/pdf/2402.07319
 - [`math-rm`](./math-rm/): the code to train process-supervised reward (PRM) and outcome-supervised reward (ORM) using the next-token prediction. We open-source the data, code, hyper-parameter, and model for a robust recipe that is easy to reproduce.
+- [`decison_tree`](./decision_tree/): the code to use and train decision-tree reward models. See [Interpreting Language Model Preferences Through the Lens of Decision Trees](https://rlhflow.github.io/posts/2025-01-22-decision-tree-reward-model/) for technical details.
 
 ## News
 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+🚀 **[Jan 2025]** Decision-tree reward model training code is released under the `decision_tree/` folder! [Decision-Tree-Reward-Gemma-2-27B](https://huggingface.co/RLHFlow/Decision-Tree-Reward-Gemma-2-27B) achieves the new state-of-the-art score (95.4%) on RewardBench!
 
 🚀 **[Nov 2024]** PRM and ORM training codes are released under the `math-rm/` folder!
 
