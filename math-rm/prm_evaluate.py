@@ -54,14 +54,18 @@ def select_sample(args,sample,model,tokenizer,candidate_tokens,local_rank):
             else:
                 text = ans_list[k]
             conversation.append({"content":text,"role":"user"})
-            conversation.append({"content":"+","role":"assistant"})
+            conversation.append({"content":"<|reserved_special_token_0|>","role":"assistant"})
 
-            input_ids = tokenizer.apply_chat_template(conversation,return_tensors="pt").to(local_rank)  
-            with torch.no_grad():
-                logits = model(input_ids).logits[:,-3,candidate_tokens] #simple version, the +/- is predicted by the '-3' position
-                scores = logits.softmax(dim=-1)[:,0] # 0 means the prob of + (1 mean -)
-                #print(scores)
-                single_step_score.append(scores[0].detach().to('cpu', dtype=torch.float32).item())
+        input_ids = tokenizer.apply_chat_template(conversation, return_tensors="pt").squeeze(0).to(local_rank)
+        indices = torch.where(input_ids == 128002)
+        input_ids[indices] = candidate_tokens[0]
+        input_ids = input_ids.unsqueeze(0)
+        with torch.no_grad():
+            logits = model(input_ids).logits[:, :, candidate_tokens]  # the +/- is predicted by the positions of the indices
+            scores = logits.softmax(dim=-1)[0, :, 0]  # 0 means the prob of + (1 mean -)
+            #print(scores)
+            mask = indices[0] - 1  # -1 to get the previous token
+            single_step_score = scores[mask].detach().to('cpu', dtype=torch.float32).tolist()
 
         step_scores.append(single_step_score)
         scores_list.append(sum(single_step_score)/len(single_step_score))
